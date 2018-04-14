@@ -64,13 +64,12 @@
 			children = (
 				DB77AA0A2066B20000069CB8 /* entities */,
 				DB77A9EB2066A4BB00069CB8 /* AppDelegate.swift */,
-				DB77A9ED2066A4BB00069CB8 /* NoteListViewController.swift */,
+				DBB43C912082260700553D87 /* controllers */,
 				DB77A9EF2066A4BB00069CB8 /* Main.storyboard */,
 				DB77A9F52066A4BB00069CB8 /* Assets.xcassets */,
 				DB77A9F72066A4BB00069CB8 /* LaunchScreen.storyboard */,
 				DB77A9FA2066A4BB00069CB8 /* Info.plist */,
 				DB77A9F22066A4BB00069CB8 /* BibleCoreDataTest03242018.xcdatamodeld */,
-				DBB43C8C2080389C00553D87 /* NotesViewController.swift */,
 				DBB43C8F208147B000553D87 /* TitleCell.swift */,
 			);
 			path = BibleCoreDataTest03242018;
@@ -81,6 +80,15 @@
 			children = (
 			);
 			path = entities;
+			sourceTree = "<group>";
+		};
+		DBB43C912082260700553D87 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DB77A9ED2066A4BB00069CB8 /* NoteListViewController.swift */,
+				DBB43C8C2080389C00553D87 /* NotesViewController.swift */,
+			);
+			path = controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

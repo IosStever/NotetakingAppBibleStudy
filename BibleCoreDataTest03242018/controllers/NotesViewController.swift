@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 
 class NotesViewController: UIViewController {
+    @IBOutlet weak var myScrollView: UIScrollView!
     
     @IBOutlet weak var noteTitleName: UITextField!
     
@@ -31,6 +32,8 @@ class NotesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let scrollHeight : CGFloat = 2500
+        myScrollView.contentSize.height = scrollHeight
         contextTV.allowsEditingTextAttributes=true
         genObsTV.allowsEditingTextAttributes=true
         keyTermsTV.allowsEditingTextAttributes=true
@@ -44,6 +47,32 @@ class NotesViewController: UIViewController {
         takeawaysTV.allowsEditingTextAttributes=true
         applicationTV.allowsEditingTextAttributes=true
 
+        
+        contextTV.layer.borderWidth = 1
+        contextTV.layer.borderColor = UIColor.blue.cgColor
+        genObsTV.layer.borderWidth = 1
+        genObsTV.layer.borderColor = UIColor.black.cgColor
+        keyTermsTV.layer.borderWidth = 1
+        keyTermsTV.layer.borderColor = UIColor.blue.cgColor
+        difficultiesTV.layer.borderWidth = 1
+        difficultiesTV.layer.borderColor = UIColor.black.cgColor
+        unexpectedTV.layer.borderWidth = 1
+        unexpectedTV.layer.borderColor = UIColor.blue.cgColor
+        comparisonsTV.layer.borderWidth = 1
+        comparisonsTV.layer.borderColor = UIColor.black.cgColor
+        crossRefsTV.layer.borderWidth = 1
+        crossRefsTV.layer.borderColor = UIColor.blue.cgColor
+        aboutGodTV.layer.borderWidth = 1
+        aboutGodTV.layer.borderColor = UIColor.black.cgColor
+        spiritualResourcesTV.layer.borderWidth = 1
+        spiritualResourcesTV.layer.borderColor = UIColor.blue.cgColor
+        correctsTV.layer.borderWidth = 1
+        correctsTV.layer.borderColor = UIColor.black.cgColor
+        takeawaysTV.layer.borderWidth = 1
+        takeawaysTV.layer.borderColor = UIColor.blue.cgColor
+        applicationTV.layer.borderWidth = 1
+        applicationTV.layer.borderColor = UIColor.black.cgColor
+        
         if let topItem = self.navigationController?.navigationBar.topItem {
             topItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         }
