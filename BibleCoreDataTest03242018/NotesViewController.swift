@@ -22,11 +22,12 @@ class NotesViewController: UIViewController {
     @IBOutlet weak var crossRefsTV: UITextView!
     @IBOutlet weak var aboutGodTV: UITextView!
     @IBOutlet weak var spiritualResourcesTV: UITextView!
-    @IBOutlet weak var correctsTV: UITextView!
     @IBOutlet weak var takeawaysTV: UITextView!
     @IBOutlet weak var applicationTV: UITextView!
     
-     var noteToEdit: Note?
+    @IBOutlet weak var correctsTV: UITextView!
+    
+    var noteToEdit: Note?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,9 +48,9 @@ class NotesViewController: UIViewController {
             topItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         }
         
-//        if noteToEdit != nil {
-//            loadNoteData()
-//        }
+        if noteToEdit != nil {
+            loadNoteData()
+        }
     }
     
     
@@ -129,18 +130,54 @@ class NotesViewController: UIViewController {
             
             noteTitleName.text = note.passage
             
-            contextTV.attributedText = note.context as! NSAttributedString
-            genObsTV.attributedText = note.observations as! NSAttributedString
-            keyTermsTV.attributedText = note.keyTerms as! NSAttributedString
-            difficultiesTV.attributedText = note.difficulties as! NSAttributedString
-            unexpectedTV.attributedText = note.unexpected as! NSAttributedString
-            comparisonsTV.attributedText = note.contrast as! NSAttributedString
-            crossRefsTV.attributedText = note.crossRefs as! NSAttributedString
-            aboutGodTV.attributedText = note.aboutGod as! NSAttributedString
-            spiritualResourcesTV.attributedText = note.spiritualResources as! NSAttributedString
-            correctsTV.attributedText = note.corrects as! NSAttributedString
-            takeawaysTV.attributedText = note.takeaways as! NSAttributedString
-            applicationTV.attributedText = note.application as! NSAttributedString
+            if let context = note.context {
+                contextTV.attributedText = context as! NSAttributedString
+            }
+            if let observations = note.observations {
+                genObsTV.attributedText = observations as! NSAttributedString
+            }
+            if let keyTerms = note.keyTerms
+            {keyTermsTV.attributedText = keyTerms as! NSAttributedString
+            }
+            if let difficulties = note.difficulties {
+                difficultiesTV.attributedText = difficulties as! NSAttributedString
+            }
+            if let unexpected=note.unexpected {
+                unexpectedTV.attributedText = unexpected as! NSAttributedString
+            }
+            if let contrast = note.contrast {
+                comparisonsTV.attributedText = contrast as! NSAttributedString
+            }
+            if let crossRefs = note.crossRefs {
+                crossRefsTV.attributedText = crossRefs as! NSAttributedString
+            }
+            if let aboutGod = note.aboutGod {
+                aboutGodTV.attributedText = aboutGod as! NSAttributedString
+            }
+            if let spiritualResources = note.spiritualResources {
+                spiritualResourcesTV.attributedText = spiritualResources as! NSAttributedString
+            }
+            if  let corrects = note.corrects {
+                correctsTV.attributedText = corrects as! NSAttributedString
+            }
+            if let takeaways = note.takeaways {
+                takeawaysTV.attributedText = takeaways as! NSAttributedString
+            }
+            if let application = note.application {
+                applicationTV.attributedText = application as! NSAttributedString
+            }
+//            contextTV.attributedText = note.context as! NSAttributedString
+//            genObsTV.attributedText = note.observations as! NSAttributedString
+//            keyTermsTV.attributedText = note.keyTerms as! NSAttributedString
+//            difficultiesTV.attributedText = note.difficulties as! NSAttributedString
+//            unexpectedTV.attributedText = note.unexpected as! NSAttributedString
+//            comparisonsTV.attributedText = note.contrast as! NSAttributedString
+//            crossRefsTV.attributedText = note.crossRefs as! NSAttributedString
+//            aboutGodTV.attributedText = note.aboutGod as! NSAttributedString
+//            spiritualResourcesTV.attributedText = note.spiritualResources as! NSAttributedString
+//            correctsTV.attributedText = note.corrects as! NSAttributedString
+//            takeawaysTV.attributedText = note.takeaways as! NSAttributedString
+//            applicationTV.attributedText = note.application as! NSAttributedString
             
             
         }

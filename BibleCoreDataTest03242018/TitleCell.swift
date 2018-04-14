@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class TitleCell: UITableViewCell {
 
@@ -23,7 +24,7 @@ class TitleCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func configureCell(note: Note){
-        //noteTitle.text = note.title
+        noteTitle.text = note.passage
         
     }
 }

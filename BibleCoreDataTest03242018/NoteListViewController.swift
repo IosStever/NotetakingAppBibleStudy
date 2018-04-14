@@ -36,7 +36,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "notesSegue", for: indexPath) as! TitleCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "notesCell", for: indexPath) as! TitleCell
         configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
         return cell
     }
@@ -77,7 +77,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func attemptFetch() {
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
-        let refSort = NSSortDescriptor(key: "title", ascending: true)
+        let refSort = NSSortDescriptor(key: "passage", ascending: true)
         fetchRequest.sortDescriptors = [refSort]
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
