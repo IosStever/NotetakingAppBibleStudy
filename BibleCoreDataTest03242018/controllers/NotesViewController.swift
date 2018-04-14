@@ -11,9 +11,7 @@ import CoreData
 
 class NotesViewController: UIViewController {
     @IBOutlet weak var myScrollView: UIScrollView!
-    
     @IBOutlet weak var noteTitleName: UITextField!
-    
     @IBOutlet weak var contextTV: UITextView!
     @IBOutlet weak var genObsTV: UITextView!
     @IBOutlet weak var keyTermsTV: UITextView!
@@ -25,14 +23,43 @@ class NotesViewController: UIViewController {
     @IBOutlet weak var spiritualResourcesTV: UITextView!
     @IBOutlet weak var takeawaysTV: UITextView!
     @IBOutlet weak var applicationTV: UITextView!
-    
     @IBOutlet weak var correctsTV: UITextView!
     
+    @IBOutlet weak var contextOutletSwitch: UISwitch!
+    @IBOutlet weak var observationsOutletSwitch: UISwitch!
+    @IBOutlet weak var keyTermsOutletSwitch: UISwitch!
+    @IBOutlet weak var difficultiesOutletSwitch: UISwitch!
+    @IBOutlet weak var unexpectedOutletSwitch: UISwitch!
+    @IBOutlet weak var comparisonsOutletSwitch: UISwitch!
+    @IBOutlet weak var crossRefsOutletSwitch: UISwitch!
+    @IBOutlet weak var aboutGodOutletSwitch: UISwitch!
+    @IBOutlet weak var spiritualResourcesOutletSwitch: UISwitch!
+    @IBOutlet weak var correctsOutletSwitch: UISwitch!
+    @IBOutlet weak var takeawaysOutletSwitch: UISwitch!
+    @IBOutlet weak var applicationOutletSwitch: UISwitch!
+    
+    
     var noteToEdit: Note?
+    
+    var contextBool = Bool()
+    var observationsBool = Bool()
+    var keyTermsBool = Bool()
+    var difficultiesBool = Bool()
+    var unexpectedBool = Bool()
+    var comparisonsBool = Bool()
+    var crossRefsBool = Bool()
+    var aboutGodBool = Bool()
+    var spiritualResourcesBool = Bool()
+    var correctsBool = Bool()
+    var takeawaysBool = Bool()
+    var applicationBool = Bool()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let scrollHeight : CGFloat = 2500
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
+        view.addGestureRecognizer(tapGesture)
         myScrollView.contentSize.height = scrollHeight
         contextTV.allowsEditingTextAttributes=true
         genObsTV.allowsEditingTextAttributes=true
@@ -82,7 +109,52 @@ class NotesViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        /// Move TextFields to keyboard. Step 7: Add observers to receive UIKeyboardWillShow and UIKeyboardWillHide notification.
+        addObservers()
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        /// Move TextFields to keyboard. Step 8: Remove observers to NOT receive notification when viewcontroller is in the background.
+        removeObservers()
+    }
+    
+    /// Move TextFields to keyboard. Step 2: Add method to handle tap event on the view and dismiss keyboard.
+    @objc func didTapView(gesture: UITapGestureRecognizer) {
+        // This should hide keyboard for the view.
+        view.endEditing(true)
+    }
+    
+    /// Move TextFields to keyboard. Step 3: Add observers for 'UIKeyboardWillShow' and 'UIKeyboardWillHide' notification.
+    func addObservers() {
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil) {
+            notification in
+            self.keyboardWillShow(notification: notification)
+        }
+    }
+    
+    /// Move TextFields to keyboard. Step 6: Method to remove observers.
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    /// Move TextFields to keyboard. Step 4: Add method to handle keyboardWillShow notification, we're using this method to adjust scrollview to show hidden textfield under keyboard.
+    func keyboardWillShow(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+                return
+        }
+        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
+        myScrollView.contentInset = contentInset
+    }
+    
+    //Move TextFields to keyboard. Step 5: Method to reset scrollview when keyboard is hidden.
+    func keyboardWillHide(notification: Notification) {
+        myScrollView.contentInset = UIEdgeInsets.zero
+        
+    }
     @IBAction func saveButtonPressed(_ sender: Any) {
         print(noteTitleName.text ?? "null")
         var note: Note!
@@ -143,10 +215,82 @@ class NotesViewController: UIViewController {
             if let application = applicationTV.attributedText {
                 note.application = application
             }
-            
-//            else {
-//                note.context = nil
-//            }
+            if contextBool == true {
+                note.contextDone = true
+            }
+            else {
+                note.contextDone = false
+            }
+                
+
+             if observationsBool == true {
+             note.observationsDone = true
+             }
+             else {
+             note.observationsDone = false
+             }
+             if keyTermsBool == true {
+             note.keyTermsDone = true
+             }
+             else {
+             note.keyTermsDone = false
+             }
+             if difficultiesBool == true {
+             note.difficultiesDone = true
+             }
+             else {
+             note.difficultiesDone = false
+             }
+             if unexpectedBool == true {
+             note.unexpectedDone = true
+             }
+             else {
+             note.unexpectedDone = false
+             }
+             if comparisonsBool == true {
+             note.contrastDone = true
+             }
+             else {
+             note.contrastDone = false
+             }
+             if crossRefsBool == true {
+             note.crossRefsDone = true
+             }
+             else {
+             note.crossRefsDone = false
+             }
+             if aboutGodBool == true {
+             note.aboutGodDone = true
+             }
+             else {
+             note.aboutGodDone = false
+             }
+             if spiritualResourcesBool == true {
+             note.spiritualResourcesDone = true
+             }
+             else {
+             note.spiritualResourcesDone = false
+             }
+             if correctsBool == true {
+             note.correctsDone = true
+             }
+             else {
+             note.correctsDone = false
+             }
+             if takeawaysBool == true {
+             note.takeawaysDone = true
+             }
+             else {
+             note.takeawaysDone = false
+             }
+             if applicationBool == true {
+             note.applicationDone = true
+             }
+             else {
+             note.applicationDone = false
+             }
+             
+
             
             ad.saveContext()
             _ = navigationController?.popViewController(animated: true)
@@ -195,25 +339,111 @@ class NotesViewController: UIViewController {
             if let application = note.application {
                 applicationTV.attributedText = application as! NSAttributedString
             }
-//            contextTV.attributedText = note.context as! NSAttributedString
-//            genObsTV.attributedText = note.observations as! NSAttributedString
-//            keyTermsTV.attributedText = note.keyTerms as! NSAttributedString
-//            difficultiesTV.attributedText = note.difficulties as! NSAttributedString
-//            unexpectedTV.attributedText = note.unexpected as! NSAttributedString
-//            comparisonsTV.attributedText = note.contrast as! NSAttributedString
-//            crossRefsTV.attributedText = note.crossRefs as! NSAttributedString
-//            aboutGodTV.attributedText = note.aboutGod as! NSAttributedString
-//            spiritualResourcesTV.attributedText = note.spiritualResources as! NSAttributedString
-//            correctsTV.attributedText = note.corrects as! NSAttributedString
-//            takeawaysTV.attributedText = note.takeaways as! NSAttributedString
-//            applicationTV.attributedText = note.application as! NSAttributedString
+            if note.contextDone == true {
+                contextOutletSwitch.setOn(true, animated: false)
+            }
             
+             if note.observationsDone == true {
+             observationsOutletSwitch.setOn(true, animated: false)
+             }
+             if note.keyTermsDone == true {
+             keyTermsOutletSwitch.setOn(true, animated: false)
+             }
+             if note.crossRefsDone == true {
+             crossRefsOutletSwitch.setOn(true, animated: false)
+             }
+             if note.difficultiesDone == true {
+             difficultiesOutletSwitch.setOn(true, animated: false)
+             }
+             if note.contrastDone == true {
+             comparisonsOutletSwitch.setOn(true, animated: false)
+             }
+             if note.aboutGodDone == true {
+             aboutGodOutletSwitch.setOn(true, animated: false)
+             }
+             if note.spiritualResourcesDone == true {
+             contextOutletSwitch.setOn(true, animated: false)
+             }
+             if note.unexpectedDone == true {
+             unexpectedOutletSwitch.setOn(true, animated: false)
+             }
+             if note.correctsDone == true {
+             correctsOutletSwitch.setOn(true, animated: false)
+             }
+             if note.takeawaysDone == true {
+             takeawaysOutletSwitch.setOn(true, animated: false)
+             }
+             if note.applicationDone == true {
+             applicationOutletSwitch.setOn(true, animated: false)
+             }
+
             
         }
         
     }
     
-
+    @IBAction func contextDoneSwitch(_ sender: UISwitch) {
+        if sender.isOn == true {
+            contextBool = true
+        }
+    }
+    @IBAction func observationsDoneSwitch(_ sender: UISwitch) {
+        if sender.isOn == true {
+            observationsBool = true
+        }
+    }
+    
+     @IBAction func keyTermsDoneSwitch(_ sender: UISwitch) {
+     if sender.isOn == true {
+     keyTermsBool = true
+     }
+     }
+     @IBAction func difficultiesDoneSwitch(_ sender: UISwitch) {
+     if sender.isOn == true {
+     difficultiesBool = true
+     }
+     }
+     @IBAction func unexpectedDoneSwitch(_ sender: UISwitch) {
+     if sender.isOn == true {
+     unexpectedBool = true
+     }
+     }
+     @IBAction func comparisonsDoneSwitch(_ sender: UISwitch) {
+     if sender.isOn == true {
+     comparisonsBool = true
+     }
+     }
+     @IBAction func crossRefsDoneSwitch(_ sender: UISwitch) {
+     if sender.isOn == true {
+     crossRefsBool = true
+     }
+     }
+     @IBAction func aboutGodDoneSwitch(_ sender: UISwitch) {
+     if sender.isOn == true {
+     aboutGodBool = true
+     }
+     }
+     @IBAction func spiritualResourcesDoneSwitch(_ sender: UISwitch) {
+     if sender.isOn == true {
+     spiritualResourcesBool = true
+     }
+     }
+     @IBAction func correctsConductDoneSwitch(_ sender: UISwitch) {
+     if sender.isOn == true {
+     correctsBool = true
+     }
+     }
+     @IBAction func takeawaysDoneSwitch(_ sender: UISwitch) {
+     if sender.isOn == true {
+     takeawaysBool = true
+     }
+     }
+     @IBAction func applicationDoneSwitch(_ sender: UISwitch) {
+     if sender.isOn == true {
+     applicationBool = true
+     }
+     }
+ 
  
 
 }

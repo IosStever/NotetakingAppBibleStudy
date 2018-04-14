@@ -91,7 +91,7 @@
                                 <rect key="frame" x="0.0" y="64" width="1024" height="2499"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bdg-Ud-Sj6">
-                                        <rect key="frame" x="0.0" y="0.5" width="1024" height="2499"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="2499"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPN-EW-iBf">
                                                 <rect key="frame" x="20" y="8" width="34" height="30"/>
@@ -118,6 +118,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QxS-0h-chT">
                                                 <rect key="frame" x="20" y="42.5" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="contextDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="yRm-go-xbu"/>
+                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZlD-ff-hcA">
                                                 <rect key="frame" x="20" y="81" width="984" height="33"/>
@@ -136,6 +139,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Iu5-eV-oIH">
                                                 <rect key="frame" x="20" y="119" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="observationsDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="MdB-NZ-fkA"/>
+                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="43D-Tp-uqa">
                                                 <rect key="frame" x="20" y="158" width="984" height="33"/>
@@ -154,6 +160,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="whO-vp-IoX">
                                                 <rect key="frame" x="20" y="195.5" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="keyTermsDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="f3o-So-eMa"/>
+                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Pq7-aP-Nvy">
                                                 <rect key="frame" x="20" y="234.5" width="984" height="33"/>
@@ -172,6 +181,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Yry-hc-T4D">
                                                 <rect key="frame" x="20" y="272" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="difficultiesDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="3LD-q7-HOd"/>
+                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="maw-EY-69F">
                                                 <rect key="frame" x="20" y="311" width="984" height="33"/>
@@ -190,6 +202,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WTX-zH-r65">
                                                 <rect key="frame" x="20" y="348.5" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="unexpectedDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="PPD-3g-lmW"/>
+                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="i8g-43-lH0">
                                                 <rect key="frame" x="20" y="387.5" width="984" height="33"/>
@@ -208,6 +223,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7Ne-ti-iwm">
                                                 <rect key="frame" x="20" y="425" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="comparisonsDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="LNi-U2-Nvo"/>
+                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qGs-16-rfw">
                                                 <rect key="frame" x="20" y="464" width="984" height="33"/>
@@ -226,6 +244,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KTa-MB-Zih">
                                                 <rect key="frame" x="20" y="501.5" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="crossRefsDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="UY7-6N-X5h"/>
+                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rcR-S5-WXU">
                                                 <rect key="frame" x="20" y="540.5" width="984" height="33"/>
@@ -244,6 +265,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6nb-b9-0Pi">
                                                 <rect key="frame" x="20" y="578" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="aboutGodDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="T4I-9O-KJx"/>
+                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Xhh-ja-caU">
                                                 <rect key="frame" x="20" y="617" width="984" height="33"/>
@@ -262,6 +286,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YI9-Jw-3ew">
                                                 <rect key="frame" x="20" y="654.5" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="spritiualResourcesDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="yQ9-Zi-7yb"/>
+                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4B2-3J-lAK">
                                                 <rect key="frame" x="20" y="693.5" width="984" height="33"/>
@@ -280,6 +307,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5AG-Id-V0S">
                                                 <rect key="frame" x="20" y="731" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="correctsConductDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="4Cu-YJ-kXd"/>
+                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h2Y-oD-aaV">
                                                 <rect key="frame" x="20" y="770" width="984" height="33"/>
@@ -287,8 +317,8 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Takeaways (learned)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDh-2z-MYD">
-                                                <rect key="frame" x="89" y="811" width="160" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Takeaways" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDh-2z-MYD">
+                                                <rect key="frame" x="89" y="811" width="84.5" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="KK0-y8-U1f"/>
                                                 </constraints>
@@ -298,6 +328,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="SU4-KT-kjc">
                                                 <rect key="frame" x="20" y="807.5" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="takeawaysDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="tom-b5-oDi"/>
+                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="d6c-E8-7ja">
                                                 <rect key="frame" x="20" y="843" width="984" height="33"/>
@@ -316,6 +349,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yPh-TQ-wKB">
                                                 <rect key="frame" x="20" y="880.5" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="applicationDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="8H6-ME-13c"/>
+                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Irz-rb-Ycg">
                                                 <rect key="frame" x="20" y="916" width="984" height="33"/>
@@ -323,12 +359,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed sections: 0/12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ix7-Q8-7Su">
-                                                <rect key="frame" x="314" y="12.5" width="195" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -370,7 +400,6 @@
                                             <constraint firstItem="rTr-Ad-kFq" firstAttribute="top" secondItem="Xhh-ja-caU" secondAttribute="bottom" constant="8" id="Jmz-Ad-1hd"/>
                                             <constraint firstItem="Axz-FM-OMT" firstAttribute="leading" secondItem="yPh-TQ-wKB" secondAttribute="trailing" constant="20" id="Jtk-vN-pXe"/>
                                             <constraint firstItem="7Ne-ti-iwm" firstAttribute="leading" secondItem="Bdg-Ud-Sj6" secondAttribute="leading" constant="20" id="JxE-PQ-99b"/>
-                                            <constraint firstItem="ix7-Q8-7Su" firstAttribute="centerY" secondItem="osO-dP-xbr" secondAttribute="centerY" id="K8Q-lA-sG7"/>
                                             <constraint firstItem="MPN-EW-iBf" firstAttribute="centerY" secondItem="osO-dP-xbr" secondAttribute="centerY" id="KEL-Ym-bhA"/>
                                             <constraint firstItem="KTa-MB-Zih" firstAttribute="centerY" secondItem="ztx-TS-6Cy" secondAttribute="centerY" id="KeV-4m-6fp"/>
                                             <constraint firstItem="khs-6e-q5u" firstAttribute="leading" secondItem="7Ne-ti-iwm" secondAttribute="trailing" constant="20" id="Kgf-HY-uRA"/>
@@ -393,7 +422,6 @@
                                             <constraint firstItem="MPN-EW-iBf" firstAttribute="leading" secondItem="Bdg-Ud-Sj6" secondAttribute="leading" constant="20" id="VjY-dV-ah2"/>
                                             <constraint firstAttribute="trailing" secondItem="Xhh-ja-caU" secondAttribute="trailing" constant="20" id="Vx1-ce-Vcz"/>
                                             <constraint firstItem="SU4-KT-kjc" firstAttribute="leading" secondItem="Bdg-Ud-Sj6" secondAttribute="leading" constant="20" id="W5m-ra-pfA"/>
-                                            <constraint firstItem="ix7-Q8-7Su" firstAttribute="leading" secondItem="osO-dP-xbr" secondAttribute="trailing" constant="20" id="X4K-bz-cL9"/>
                                             <constraint firstItem="ztx-TS-6Cy" firstAttribute="top" secondItem="qGs-16-rfw" secondAttribute="bottom" constant="8" id="ZYe-q6-rcX"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="khs-6e-q5u" secondAttribute="trailing" constant="20" symbolic="YES" id="aFy-4w-fza"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AIE-63-eXa" secondAttribute="trailing" constant="20" symbolic="YES" id="arq-gB-52H"/>
@@ -414,7 +442,6 @@
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gDh-2z-MYD" secondAttribute="trailing" constant="20" symbolic="YES" id="eOt-qk-Q4U"/>
                                             <constraint firstItem="whO-vp-IoX" firstAttribute="leading" secondItem="Bdg-Ud-Sj6" secondAttribute="leading" constant="20" id="ego-5l-Up6"/>
                                             <constraint firstItem="Xhh-ja-caU" firstAttribute="top" secondItem="6nb-b9-0Pi" secondAttribute="bottom" constant="8" id="evF-si-dza"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ix7-Q8-7Su" secondAttribute="trailing" constant="20" symbolic="YES" id="f08-av-drx"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="osO-dP-xbr" secondAttribute="trailing" constant="20" symbolic="YES" id="fYH-Kb-QfN"/>
                                             <constraint firstItem="YI9-Jw-3ew" firstAttribute="leading" secondItem="Bdg-Ud-Sj6" secondAttribute="leading" constant="20" id="guh-Cc-mGP"/>
                                             <constraint firstItem="o8Q-4i-4oY" firstAttribute="top" secondItem="osO-dP-xbr" secondAttribute="bottom" constant="8" id="ibJ-Ce-R1o"/>
@@ -459,19 +486,31 @@
                         <viewLayoutGuide key="safeArea" id="Fft-8F-rPT"/>
                     </view>
                     <connections>
+                        <outlet property="aboutGodOutletSwitch" destination="6nb-b9-0Pi" id="X3m-i3-QnQ"/>
                         <outlet property="aboutGodTV" destination="Xhh-ja-caU" id="FWL-cl-EQB"/>
+                        <outlet property="applicationOutletSwitch" destination="yPh-TQ-wKB" id="7PB-qR-ccy"/>
                         <outlet property="applicationTV" destination="Irz-rb-Ycg" id="SYT-Fe-G3D"/>
+                        <outlet property="comparisonsOutletSwitch" destination="7Ne-ti-iwm" id="vaj-Qe-wDR"/>
                         <outlet property="comparisonsTV" destination="qGs-16-rfw" id="nCz-Oo-CdC"/>
+                        <outlet property="contextOutletSwitch" destination="QxS-0h-chT" id="914-wl-hb2"/>
                         <outlet property="contextTV" destination="ZlD-ff-hcA" id="uXe-fJ-Msh"/>
+                        <outlet property="correctsOutletSwitch" destination="5AG-Id-V0S" id="RIM-Ni-U0h"/>
                         <outlet property="correctsTV" destination="h2Y-oD-aaV" id="Mka-HD-19M"/>
+                        <outlet property="crossRefsOutletSwitch" destination="ztx-TS-6Cy" id="YBy-cu-mhq"/>
                         <outlet property="crossRefsTV" destination="rcR-S5-WXU" id="pya-Es-x5J"/>
+                        <outlet property="difficultiesOutletSwitch" destination="Yry-hc-T4D" id="ACR-p6-hSm"/>
                         <outlet property="difficultiesTV" destination="maw-EY-69F" id="Jmo-Gd-WqH"/>
                         <outlet property="genObsTV" destination="43D-Tp-uqa" id="IDV-eO-wkh"/>
+                        <outlet property="keyTermsOutletSwitch" destination="whO-vp-IoX" id="CDC-KZ-aaW"/>
                         <outlet property="keyTermsTV" destination="Pq7-aP-Nvy" id="9gE-tJ-Gl0"/>
                         <outlet property="myScrollView" destination="bGv-9G-ZEo" id="Meh-oL-fMB"/>
                         <outlet property="noteTitleName" destination="osO-dP-xbr" id="c9Z-gC-cGI"/>
+                        <outlet property="observationsOutletSwitch" destination="Iu5-eV-oIH" id="jr1-1L-6fB"/>
+                        <outlet property="spiritualResourcesOutletSwitch" destination="YI9-Jw-3ew" id="gVw-n4-l3b"/>
                         <outlet property="spiritualResourcesTV" destination="4B2-3J-lAK" id="ePD-7X-aSe"/>
+                        <outlet property="takeawaysOutletSwitch" destination="SU4-KT-kjc" id="pUt-Rt-iw2"/>
                         <outlet property="takeawaysTV" destination="d6c-E8-7ja" id="2BM-fi-KnP"/>
+                        <outlet property="unexpectedOutletSwitch" destination="WTX-zH-r65" id="rtV-52-Ogf"/>
                         <outlet property="unexpectedTV" destination="i8g-43-lH0" id="RLS-EH-08f"/>
                     </connections>
                 </viewController>
