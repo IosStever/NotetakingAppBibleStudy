@@ -118,9 +118,6 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QxS-0h-chT">
                                                 <rect key="frame" x="20" y="42.5" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="contextDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="yRm-go-xbu"/>
-                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZlD-ff-hcA">
                                                 <rect key="frame" x="20" y="81" width="984" height="33"/>
@@ -139,9 +136,6 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Iu5-eV-oIH">
                                                 <rect key="frame" x="20" y="119" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="observationsDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="MdB-NZ-fkA"/>
-                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="43D-Tp-uqa">
                                                 <rect key="frame" x="20" y="158" width="984" height="33"/>
@@ -160,9 +154,6 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="whO-vp-IoX">
                                                 <rect key="frame" x="20" y="195.5" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="keyTermsDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="f3o-So-eMa"/>
-                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Pq7-aP-Nvy">
                                                 <rect key="frame" x="20" y="234.5" width="984" height="33"/>
@@ -181,9 +172,6 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Yry-hc-T4D">
                                                 <rect key="frame" x="20" y="272" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="difficultiesDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="3LD-q7-HOd"/>
-                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="maw-EY-69F">
                                                 <rect key="frame" x="20" y="311" width="984" height="33"/>
@@ -202,9 +190,6 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WTX-zH-r65">
                                                 <rect key="frame" x="20" y="348.5" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="unexpectedDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="PPD-3g-lmW"/>
-                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="i8g-43-lH0">
                                                 <rect key="frame" x="20" y="387.5" width="984" height="33"/>
@@ -223,9 +208,6 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7Ne-ti-iwm">
                                                 <rect key="frame" x="20" y="425" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="comparisonsDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="LNi-U2-Nvo"/>
-                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qGs-16-rfw">
                                                 <rect key="frame" x="20" y="464" width="984" height="33"/>
@@ -244,9 +226,6 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KTa-MB-Zih">
                                                 <rect key="frame" x="20" y="501.5" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="crossRefsDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="UY7-6N-X5h"/>
-                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rcR-S5-WXU">
                                                 <rect key="frame" x="20" y="540.5" width="984" height="33"/>
@@ -265,9 +244,6 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6nb-b9-0Pi">
                                                 <rect key="frame" x="20" y="578" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="aboutGodDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="T4I-9O-KJx"/>
-                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Xhh-ja-caU">
                                                 <rect key="frame" x="20" y="617" width="984" height="33"/>
@@ -286,9 +262,6 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YI9-Jw-3ew">
                                                 <rect key="frame" x="20" y="654.5" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="spritiualResourcesDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="yQ9-Zi-7yb"/>
-                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4B2-3J-lAK">
                                                 <rect key="frame" x="20" y="693.5" width="984" height="33"/>
@@ -307,9 +280,6 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5AG-Id-V0S">
                                                 <rect key="frame" x="20" y="731" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="correctsConductDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="4Cu-YJ-kXd"/>
-                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h2Y-oD-aaV">
                                                 <rect key="frame" x="20" y="770" width="984" height="33"/>
@@ -328,9 +298,6 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="SU4-KT-kjc">
                                                 <rect key="frame" x="20" y="807.5" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="takeawaysDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="tom-b5-oDi"/>
-                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="d6c-E8-7ja">
                                                 <rect key="frame" x="20" y="843" width="984" height="33"/>
@@ -349,9 +316,6 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yPh-TQ-wKB">
                                                 <rect key="frame" x="20" y="880.5" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="applicationDoneSwitch:" destination="IzR-8n-Vgr" eventType="valueChanged" id="8H6-ME-13c"/>
-                                                </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Irz-rb-Ycg">
                                                 <rect key="frame" x="20" y="916" width="984" height="33"/>
@@ -360,7 +324,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="ZlD-ff-hcA" secondAttribute="trailing" constant="20" id="136-kQ-Cfd"/>
                                             <constraint firstItem="Pq7-aP-Nvy" firstAttribute="top" secondItem="whO-vp-IoX" secondAttribute="bottom" constant="8" id="1BZ-Nd-O52"/>
@@ -477,7 +441,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="bGv-9G-ZEo" firstAttribute="leading" secondItem="Fft-8F-rPT" secondAttribute="leading" id="O4S-R0-6hX"/>
                             <constraint firstItem="Fft-8F-rPT" firstAttribute="trailing" secondItem="bGv-9G-ZEo" secondAttribute="trailing" id="fOD-b0-3MI"/>
@@ -496,7 +460,7 @@
                         <outlet property="contextTV" destination="ZlD-ff-hcA" id="uXe-fJ-Msh"/>
                         <outlet property="correctsOutletSwitch" destination="5AG-Id-V0S" id="RIM-Ni-U0h"/>
                         <outlet property="correctsTV" destination="h2Y-oD-aaV" id="Mka-HD-19M"/>
-                        <outlet property="crossRefsOutletSwitch" destination="ztx-TS-6Cy" id="YBy-cu-mhq"/>
+                        <outlet property="crossRefsOutletSwitch" destination="KTa-MB-Zih" id="RDK-jD-Uxt"/>
                         <outlet property="crossRefsTV" destination="rcR-S5-WXU" id="pya-Es-x5J"/>
                         <outlet property="difficultiesOutletSwitch" destination="Yry-hc-T4D" id="ACR-p6-hSm"/>
                         <outlet property="difficultiesTV" destination="maw-EY-69F" id="Jmo-Gd-WqH"/>

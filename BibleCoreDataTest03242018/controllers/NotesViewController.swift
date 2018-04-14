@@ -12,6 +12,7 @@ import CoreData
 class NotesViewController: UIViewController {
     @IBOutlet weak var myScrollView: UIScrollView!
     @IBOutlet weak var noteTitleName: UITextField!
+    
     @IBOutlet weak var contextTV: UITextView!
     @IBOutlet weak var genObsTV: UITextView!
     @IBOutlet weak var keyTermsTV: UITextView!
@@ -38,22 +39,7 @@ class NotesViewController: UIViewController {
     @IBOutlet weak var takeawaysOutletSwitch: UISwitch!
     @IBOutlet weak var applicationOutletSwitch: UISwitch!
     
-    
     var noteToEdit: Note?
-    
-    var contextBool = Bool()
-    var observationsBool = Bool()
-    var keyTermsBool = Bool()
-    var difficultiesBool = Bool()
-    var unexpectedBool = Bool()
-    var comparisonsBool = Bool()
-    var crossRefsBool = Bool()
-    var aboutGodBool = Bool()
-    var spiritualResourcesBool = Bool()
-    var correctsBool = Bool()
-    var takeawaysBool = Bool()
-    var applicationBool = Bool()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,8 +86,14 @@ class NotesViewController: UIViewController {
         applicationTV.layer.borderWidth = 1
         applicationTV.layer.borderColor = UIColor.black.cgColor
         
+        
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deletePressed))
+//
         if let topItem = self.navigationController?.navigationBar.topItem {
             topItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
+            //topItem.rightBarButtonItem =
+            //saveData()
         }
         
         if noteToEdit != nil {
@@ -155,18 +147,23 @@ class NotesViewController: UIViewController {
         myScrollView.contentInset = UIEdgeInsets.zero
         
     }
-    @IBAction func saveButtonPressed(_ sender: Any) {
-        print(noteTitleName.text ?? "null")
+    
+    
+    
+    fileprivate func saveData() {
+        //print(noteTitleName.text ?? "null")
         var note: Note!
         
-        if noteTitleName.text == "" {
-            let alert = UIAlertController(title: "Alert!", message: "Please enter title", preferredStyle: .actionSheet)
-            let popover = alert.popoverPresentationController
-            popover?.sourceView = view
-            popover?.sourceRect = CGRect(x: 32, y: 32, width: 64, height: 64)
-            present(alert, animated: true)
-            
-        } else {
+//        if noteTitleName.text == "" {
+//            let alert = UIAlertController(title: "Alert!", message: "Please enter title", preferredStyle: .actionSheet)
+//            let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+//            alert.addAction(dismissAction)
+//            let popover = alert.popoverPresentationController
+//            popover?.sourceView = view
+//            popover?.sourceRect = CGRect(x: 32, y: 32, width: 64, height: 64)
+//            present(alert, animated: true)
+//
+//        } else {
             if noteToEdit == nil {
                 note = Note(context: context)
             } else {
@@ -215,87 +212,98 @@ class NotesViewController: UIViewController {
             if let application = applicationTV.attributedText {
                 note.application = application
             }
-            if contextBool == true {
+            if contextOutletSwitch.isOn == true {
                 note.contextDone = true
             }
             else {
                 note.contextDone = false
             }
-                
-
-             if observationsBool == true {
-             note.observationsDone = true
-             }
-             else {
-             note.observationsDone = false
-             }
-             if keyTermsBool == true {
-             note.keyTermsDone = true
-             }
-             else {
-             note.keyTermsDone = false
-             }
-             if difficultiesBool == true {
-             note.difficultiesDone = true
-             }
-             else {
-             note.difficultiesDone = false
-             }
-             if unexpectedBool == true {
-             note.unexpectedDone = true
-             }
-             else {
-             note.unexpectedDone = false
-             }
-             if comparisonsBool == true {
-             note.contrastDone = true
-             }
-             else {
-             note.contrastDone = false
-             }
-             if crossRefsBool == true {
-             note.crossRefsDone = true
-             }
-             else {
-             note.crossRefsDone = false
-             }
-             if aboutGodBool == true {
-             note.aboutGodDone = true
-             }
-             else {
-             note.aboutGodDone = false
-             }
-             if spiritualResourcesBool == true {
-             note.spiritualResourcesDone = true
-             }
-             else {
-             note.spiritualResourcesDone = false
-             }
-             if correctsBool == true {
-             note.correctsDone = true
-             }
-             else {
-             note.correctsDone = false
-             }
-             if takeawaysBool == true {
-             note.takeawaysDone = true
-             }
-             else {
-             note.takeawaysDone = false
-             }
-             if applicationBool == true {
-             note.applicationDone = true
-             }
-             else {
-             note.applicationDone = false
-             }
-             
-
+            if observationsOutletSwitch.isOn == true {
+                note.observationsDone = true
+            }
+            else {
+                note.observationsDone = false
+            }
+            if keyTermsOutletSwitch.isOn == true {
+                note.keyTermsDone = true
+            }
+            else {
+                note.keyTermsDone = false
+            }
+            if difficultiesOutletSwitch.isOn == true {
+                note.difficultiesDone = true
+            }
+            else {
+                note.difficultiesDone = false
+            }
+            if unexpectedOutletSwitch.isOn == true {
+                note.unexpectedDone = true
+            }
+            else {
+                note.unexpectedDone = false
+            }
+            if comparisonsOutletSwitch.isOn == true {
+                note.contrastDone = true
+            }
+            else {
+                note.contrastDone = false
+            }
+            if crossRefsOutletSwitch.isOn == true {
+                note.crossRefsDone = true
+            }
+            else {
+                note.crossRefsDone = false
+            }
+            if aboutGodOutletSwitch.isOn == true {
+                note.aboutGodDone = true
+            }
+            else {
+                note.aboutGodDone = false
+            }
+            if spiritualResourcesOutletSwitch.isOn == true {
+                note.spiritualResourcesDone = true
+            }
+            else {
+                note.spiritualResourcesDone = false
+            }
+            if correctsOutletSwitch.isOn == true {
+                note.correctsDone = true
+            }
+            else {
+                note.correctsDone = false
+            }
+            if takeawaysOutletSwitch.isOn == true {
+                note.takeawaysDone = true
+            }
+            else {
+                note.takeawaysDone = false
+            }
+            if applicationOutletSwitch.isOn == true {
+                note.applicationDone = true
+            }
+            else {
+                note.applicationDone = false
+            }
+            
+            
             
             ad.saveContext()
-            _ = navigationController?.popViewController(animated: true)
-
+            //_ = navigationController?.popViewController(animated: true)
+            
+        //}
+    }
+    
+    @IBAction func saveButtonPressed(_ sender: Any) {
+                if noteTitleName.text == "" {
+                    let alert = UIAlertController(title: "Alert!", message: "Please enter title", preferredStyle: .actionSheet)
+                    let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+                    alert.addAction(dismissAction)
+                    let popover = alert.popoverPresentationController
+                    popover?.sourceView = view
+                    popover?.sourceRect = CGRect(x: 32, y: 32, width: 64, height: 64)
+                    present(alert, animated: true)
         }
+        saveData()
     }
     
     func loadNoteData() {
@@ -309,8 +317,8 @@ class NotesViewController: UIViewController {
             if let observations = note.observations {
                 genObsTV.attributedText = observations as! NSAttributedString
             }
-            if let keyTerms = note.keyTerms
-            {keyTermsTV.attributedText = keyTerms as! NSAttributedString
+            if let keyTerms = note.keyTerms {
+                keyTermsTV.attributedText = keyTerms as! NSAttributedString
             }
             if let difficulties = note.difficulties {
                 difficultiesTV.attributedText = difficulties as! NSAttributedString
@@ -339,111 +347,94 @@ class NotesViewController: UIViewController {
             if let application = note.application {
                 applicationTV.attributedText = application as! NSAttributedString
             }
+            
             if note.contextDone == true {
                 contextOutletSwitch.setOn(true, animated: false)
+            } else {
+                contextOutletSwitch.setOn(false, animated: false)
             }
             
-             if note.observationsDone == true {
+            if note.observationsDone == true {
              observationsOutletSwitch.setOn(true, animated: false)
-             }
-             if note.keyTermsDone == true {
+             } else {
+                observationsOutletSwitch.setOn(false, animated: false)
+            }
+            
+            if note.keyTermsDone == true {
              keyTermsOutletSwitch.setOn(true, animated: false)
-             }
-             if note.crossRefsDone == true {
+             } else {
+                keyTermsOutletSwitch.setOn(false, animated: false)
+            }
+            
+            if note.difficultiesDone == true {
+                difficultiesOutletSwitch.setOn(true, animated: false)
+            } else {
+                difficultiesOutletSwitch.setOn(false, animated: false)
+            }
+            
+            if note.unexpectedDone == true {
+                unexpectedOutletSwitch.setOn(true, animated: false)
+            } else {
+                unexpectedOutletSwitch.setOn(false, animated: false)
+            }
+            
+            if note.contrastDone == true {
+                comparisonsOutletSwitch.setOn(true, animated: false)
+            } else {
+                comparisonsOutletSwitch.setOn(false, animated: false)
+            }
+            
+            if note.crossRefsDone == true {
              crossRefsOutletSwitch.setOn(true, animated: false)
-             }
-             if note.difficultiesDone == true {
-             difficultiesOutletSwitch.setOn(true, animated: false)
-             }
-             if note.contrastDone == true {
-             comparisonsOutletSwitch.setOn(true, animated: false)
-             }
-             if note.aboutGodDone == true {
+             } else {
+                 crossRefsOutletSwitch.setOn(false, animated: false)
+            }
+            
+            if note.aboutGodDone == true {
              aboutGodOutletSwitch.setOn(true, animated: false)
-             }
-             if note.spiritualResourcesDone == true {
-             contextOutletSwitch.setOn(true, animated: false)
-             }
-             if note.unexpectedDone == true {
-             unexpectedOutletSwitch.setOn(true, animated: false)
-             }
-             if note.correctsDone == true {
+             } else {
+              aboutGodOutletSwitch.setOn(false, animated: false)
+            }
+            
+            if note.spiritualResourcesDone == true {
+             spiritualResourcesOutletSwitch.setOn(true, animated: false)
+             } else {
+            spiritualResourcesOutletSwitch.setOn(false, animated: false)
+            }
+            
+            if note.correctsDone == true {
              correctsOutletSwitch.setOn(true, animated: false)
-             }
-             if note.takeawaysDone == true {
+             } else {
+               correctsOutletSwitch.setOn(false, animated: false)
+            }
+            
+            if note.takeawaysDone == true {
              takeawaysOutletSwitch.setOn(true, animated: false)
-             }
-             if note.applicationDone == true {
+             } else {
+               takeawaysOutletSwitch.setOn(false, animated: false)
+            }
+            
+            if note.applicationDone == true {
              applicationOutletSwitch.setOn(true, animated: false)
-             }
+             } else {
+               applicationOutletSwitch.setOn(false, animated: false)
+            }
 
             
         }
         
     }
     
-    @IBAction func contextDoneSwitch(_ sender: UISwitch) {
-        if sender.isOn == true {
-            contextBool = true
+
+    @IBAction func deletePressed(_ sender: Any) {
+        if noteToEdit != nil {
+            context.delete(noteToEdit!)
+            ad.saveContext()
+            
+            
         }
+        _ = navigationController?.popViewController(animated: true)
     }
-    @IBAction func observationsDoneSwitch(_ sender: UISwitch) {
-        if sender.isOn == true {
-            observationsBool = true
-        }
-    }
-    
-     @IBAction func keyTermsDoneSwitch(_ sender: UISwitch) {
-     if sender.isOn == true {
-     keyTermsBool = true
-     }
-     }
-     @IBAction func difficultiesDoneSwitch(_ sender: UISwitch) {
-     if sender.isOn == true {
-     difficultiesBool = true
-     }
-     }
-     @IBAction func unexpectedDoneSwitch(_ sender: UISwitch) {
-     if sender.isOn == true {
-     unexpectedBool = true
-     }
-     }
-     @IBAction func comparisonsDoneSwitch(_ sender: UISwitch) {
-     if sender.isOn == true {
-     comparisonsBool = true
-     }
-     }
-     @IBAction func crossRefsDoneSwitch(_ sender: UISwitch) {
-     if sender.isOn == true {
-     crossRefsBool = true
-     }
-     }
-     @IBAction func aboutGodDoneSwitch(_ sender: UISwitch) {
-     if sender.isOn == true {
-     aboutGodBool = true
-     }
-     }
-     @IBAction func spiritualResourcesDoneSwitch(_ sender: UISwitch) {
-     if sender.isOn == true {
-     spiritualResourcesBool = true
-     }
-     }
-     @IBAction func correctsConductDoneSwitch(_ sender: UISwitch) {
-     if sender.isOn == true {
-     correctsBool = true
-     }
-     }
-     @IBAction func takeawaysDoneSwitch(_ sender: UISwitch) {
-     if sender.isOn == true {
-     takeawaysBool = true
-     }
-     }
-     @IBAction func applicationDoneSwitch(_ sender: UISwitch) {
-     if sender.isOn == true {
-     applicationBool = true
-     }
-     }
- 
  
 
 }
