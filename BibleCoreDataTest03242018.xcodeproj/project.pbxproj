@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB6C9AE22083600F00F9D750 /* AllNotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C9AE12083600E00F9D750 /* AllNotesVC.swift */; };
 		DB77A9EC2066A4BB00069CB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB77A9EB2066A4BB00069CB8 /* AppDelegate.swift */; };
 		DB77A9EE2066A4BB00069CB8 /* NoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB77A9ED2066A4BB00069CB8 /* NoteListViewController.swift */; };
 		DB77A9F12066A4BB00069CB8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB77A9EF2066A4BB00069CB8 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB6C9AE12083600E00F9D750 /* AllNotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNotesVC.swift; sourceTree = "<group>"; };
 		DB77A9E82066A4BB00069CB8 /* BibleCoreDataTest03242018.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BibleCoreDataTest03242018.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB77A9EB2066A4BB00069CB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB77A9ED2066A4BB00069CB8 /* NoteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				DB77A9FA2066A4BB00069CB8 /* Info.plist */,
 				DB77A9F22066A4BB00069CB8 /* BibleCoreDataTest03242018.xcdatamodeld */,
 				DBB43C8F208147B000553D87 /* TitleCell.swift */,
+				DB6C9AE12083600E00F9D750 /* AllNotesVC.swift */,
 			);
 			path = BibleCoreDataTest03242018;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				DB77A9EE2066A4BB00069CB8 /* NoteListViewController.swift in Sources */,
 				DBB43C90208147B000553D87 /* TitleCell.swift in Sources */,
 				DB77A9EC2066A4BB00069CB8 /* AppDelegate.swift in Sources */,
+				DB6C9AE22083600F00F9D750 /* AllNotesVC.swift in Sources */,
 				DBB43C8D2080389C00553D87 /* NotesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

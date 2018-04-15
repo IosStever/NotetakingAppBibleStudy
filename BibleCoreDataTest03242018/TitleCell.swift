@@ -12,6 +12,7 @@ import CoreData
 class TitleCell: UITableViewCell {
 
     @IBOutlet weak var noteTitle: UILabel!
+    @IBOutlet weak var sectionsCompleted: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,6 +26,7 @@ class TitleCell: UITableViewCell {
     }
     func configureCell(note: Note){
         noteTitle.text = note.passage
+        sectionsCompleted.text = "You have completed \(note.sectionsCompleted) out of 12 categories."
         
     }
 }
