@@ -74,13 +74,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Bible passages" id="BgA-fw-Fcx">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="WJG-JC-ZUi">
-                            <connections>
-                                <segue destination="IzR-8n-Vgr" kind="show" identifier="addNoteSegue" id="pbA-v6-n6Q"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Bible passages" id="BgA-fw-Fcx"/>
                     <connections>
                         <outlet property="titlesTableView" destination="P6Y-e6-Wit" id="fIE-RF-My9"/>
                         <segue destination="IzR-8n-Vgr" kind="show" identifier="notesSegue" id="xqH-YR-cgO"/>
@@ -93,16 +87,16 @@
         <!--Notes View Controller-->
         <scene sceneID="hDc-Qr-lBo">
             <objects>
-                <viewController id="IzR-8n-Vgr" customClass="NotesViewController" customModule="BibleCoreDataTest03242018" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="notesVCID" id="IzR-8n-Vgr" customClass="NotesViewController" customModule="BibleCoreDataTest03242018" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6DH-3o-iIM">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bGv-9G-ZEo">
-                                <rect key="frame" x="0.0" y="64" width="1024" height="2499"/>
+                                <rect key="frame" x="0.0" y="64" width="1024" height="1302"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bdg-Ud-Sj6">
-                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="2499"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1302"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPN-EW-iBf">
                                                 <rect key="frame" x="20" y="8" width="34" height="30"/>
@@ -443,7 +437,6 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="Bdg-Ud-Sj6" firstAttribute="centerX" secondItem="bGv-9G-ZEo" secondAttribute="centerX" id="4da-7M-grH"/>
-                                    <constraint firstAttribute="height" constant="2499" id="D5M-Lk-G8h"/>
                                     <constraint firstAttribute="bottom" secondItem="Bdg-Ud-Sj6" secondAttribute="bottom" constant="1500" id="L21-IM-i0B"/>
                                     <constraint firstItem="Bdg-Ud-Sj6" firstAttribute="centerY" secondItem="bGv-9G-ZEo" secondAttribute="centerY" id="dNX-uA-Gdy"/>
                                     <constraint firstItem="Bdg-Ud-Sj6" firstAttribute="height" secondItem="bGv-9G-ZEo" secondAttribute="height" id="eAJ-N5-DSm"/>
@@ -455,6 +448,7 @@
                         <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="bGv-9G-ZEo" firstAttribute="leading" secondItem="Fft-8F-rPT" secondAttribute="leading" id="O4S-R0-6hX"/>
+                            <constraint firstItem="bGv-9G-ZEo" firstAttribute="bottom" secondItem="Fft-8F-rPT" secondAttribute="bottom" id="SSZ-uE-UJS"/>
                             <constraint firstItem="Fft-8F-rPT" firstAttribute="trailing" secondItem="bGv-9G-ZEo" secondAttribute="trailing" id="fOD-b0-3MI"/>
                             <constraint firstItem="bGv-9G-ZEo" firstAttribute="top" secondItem="Fft-8F-rPT" secondAttribute="top" id="tdi-4x-WNC"/>
                         </constraints>
@@ -588,7 +582,4 @@
             <point key="canvasLocation" x="133.59999999999999" y="791.15442278860576"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="xqH-YR-cgO"/>
-    </inferredMetricsTieBreakers>
 </document>

@@ -16,15 +16,33 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var titlesTableView: UITableView!
     
     var controller: NSFetchedResultsController<Note>!
+    //var nlvcTitle : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         titlesTableView.delegate = self
         titlesTableView.dataSource = self
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         // Do any additional setup after loading the view, typically from a nib.
         attemptFetch()
     }
     
+    @objc func addTapped() {
+       let myVC = storyboard?.instantiateViewController(withIdentifier: "notesVCID") as! NotesViewController
+       // nlvcTitle = "Please enter passage here"
+        // myVC.noteTitleName.text
+//        if let thisVCtitletext = noteToEdit?.passage {
+//            myVC.titleText = thisVCtitletext
+//        }
+//              if let newTitle = nlvcTitle {
+//          myVC.newNoteDefaultTitle = newTitle
+//    }
+       // myVC.saveButtonPressed((Any).self)
+//
+//
+        navigationController?.pushViewController(myVC, animated: true)
+
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sections = controller.sections {

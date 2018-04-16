@@ -39,8 +39,10 @@ class NotesViewController: UIViewController {
     @IBOutlet weak var takeawaysOutletSwitch: UISwitch!
     @IBOutlet weak var applicationOutletSwitch: UISwitch!
     
+    //var note: Note!
     var noteToEdit: Note?
     var categoriesCompleted = 0
+    var newNoteDefaultTitle = ""
     var allNotes = NSAttributedString()
     
     override func viewDidLoad() {
@@ -61,7 +63,6 @@ class NotesViewController: UIViewController {
         correctsTV.allowsEditingTextAttributes=true
         takeawaysTV.allowsEditingTextAttributes=true
         applicationTV.allowsEditingTextAttributes=true
-        
         
         contextTV.layer.borderWidth = 1
         contextTV.layer.borderColor = UIColor.blue.cgColor
@@ -89,86 +90,44 @@ class NotesViewController: UIViewController {
         applicationTV.layer.borderColor = UIColor.black.cgColor
         
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
-        //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-        //How to add more than one button
-        //let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-        //            let play = UIBarButtonItem(title: "Play", style: .plain, target: self, action: #selector(playTapped))
-        //
-        //            navigationItem.rightBarButtonItems = [add, play]
+        //notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+
         let delete = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deletePressed))
         let viewAll = UIBarButtonItem(title: "View", style: .plain, target: self, action: #selector(allNotesPressed))
         navigationItem.rightBarButtonItems = [delete, viewAll]
-        
-        //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deletePressed))
-        
+         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backPressed))
-        
-        
-        //        if let topItem = self.navigationController?.navigationBar.topItem {
-        //            topItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
-        //        }
         
         if noteToEdit != nil {
             loadNoteData()
         }
     }
-    
-    @objc func appMovedToBackground() {
-        
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            myScrollView.contentInset.bottom = keyboardSize.height
+        }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        /// Move TextFields to keyboard. Step 7: Add observers to receive UIKeyboardWillShow and UIKeyboardWillHide notification.
-        addObservers()
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        myScrollView.contentInset.bottom = 0
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        /// Move TextFields to keyboard. Step 8: Remove observers to NOT receive notification when viewcontroller is in the background.
-        removeObservers()
-    }
-    
-    /// Move TextFields to keyboard. Step 2: Add method to handle tap event on the view and dismiss keyboard.
     @objc func didTapView(gesture: UITapGestureRecognizer) {
         // This should hide keyboard for the view.
         view.endEditing(true)
     }
     
-    /// Move TextFields to keyboard. Step 3: Add observers for 'UIKeyboardWillShow' and 'UIKeyboardWillHide' notification.
-    func addObservers() {
-        NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil) {
-            notification in
-            self.keyboardWillShow(notification: notification)
-        }
-    }
-    
-    /// Move TextFields to keyboard. Step 6: Method to remove observers.
-    func removeObservers() {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    /// Move TextFields to keyboard. Step 4: Add method to handle keyboardWillShow notification, we're using this method to adjust scrollview to show hidden textfield under keyboard.
-    func keyboardWillShow(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-            let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-                return
-        }
-        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
-        myScrollView.contentInset = contentInset
-    }
-    
-    //Move TextFields to keyboard. Step 5: Method to reset scrollview when keyboard is hidden.
-    func keyboardWillHide(notification: Notification) {
-        myScrollView.contentInset = UIEdgeInsets.zero
-        
-    }
+//    @objc func appMovedToBackground() {
+//
+//    }
+   
     
     fileprivate func saveData() {
         //print(noteTitleName.text ?? "null")
         var note: Note!
-        
+        //note = noteToEdit //changed
         if noteToEdit == nil {
             note = Note(context: context)
         } else {
@@ -308,6 +267,10 @@ class NotesViewController: UIViewController {
         
     }
     
+//    func newNote() {
+//        note = Note(context: context)
+//    }
+    
     @IBAction func saveButtonPressed(_ sender: Any) {
         if noteTitleName.text == "" {
             let alert = UIAlertController(title: "Alert!", message: "Please enter title", preferredStyle: .actionSheet)
@@ -317,6 +280,9 @@ class NotesViewController: UIViewController {
             popover?.sourceView = view
             popover?.sourceRect = CGRect(x: 32, y: 32, width: 64, height: 64)
             present(alert, animated: true)
+        }
+        if noteTitleName.text == nil {
+            noteTitleName.text = newNoteDefaultTitle
         }
         saveData()
     }
@@ -415,78 +381,20 @@ class NotesViewController: UIViewController {
             if let application = note.application {
                 applicationTV.attributedText = application as! NSAttributedString
             }
+
+            contextOutletSwitch.setOn(note.contextDone, animated: false)
+            observationsOutletSwitch.setOn(note.observationsDone, animated: false)
+            keyTermsOutletSwitch.setOn(note.keyTermsDone, animated: false)
+            difficultiesOutletSwitch.setOn(note.difficultiesDone, animated: false)
+            unexpectedOutletSwitch.setOn(note.unexpectedDone, animated: false)
+            comparisonsOutletSwitch.setOn(note.contrastDone, animated: false)
+            crossRefsOutletSwitch.setOn(note.crossRefsDone, animated: false)
+            aboutGodOutletSwitch.setOn(note.aboutGodDone, animated: false)
+            spiritualResourcesOutletSwitch.setOn(note.spiritualResourcesDone, animated: false)
+            correctsOutletSwitch.setOn(note.correctsDone, animated: false)
+            takeawaysOutletSwitch.setOn(note.takeawaysDone, animated: false)
+            applicationOutletSwitch.setOn(note.applicationDone, animated: false)
             
-            if note.contextDone == true {
-                contextOutletSwitch.setOn(true, animated: false)
-            } else {
-                contextOutletSwitch.setOn(false, animated: false)
-            }
-            
-            if note.observationsDone == true {
-                observationsOutletSwitch.setOn(true, animated: false)
-            } else {
-                observationsOutletSwitch.setOn(false, animated: false)
-            }
-            
-            if note.keyTermsDone == true {
-                keyTermsOutletSwitch.setOn(true, animated: false)
-            } else {
-                keyTermsOutletSwitch.setOn(false, animated: false)
-            }
-            
-            if note.difficultiesDone == true {
-                difficultiesOutletSwitch.setOn(true, animated: false)
-            } else {
-                difficultiesOutletSwitch.setOn(false, animated: false)
-            }
-            
-            if note.unexpectedDone == true {
-                unexpectedOutletSwitch.setOn(true, animated: false)
-            } else {
-                unexpectedOutletSwitch.setOn(false, animated: false)
-            }
-            
-            if note.contrastDone == true {
-                comparisonsOutletSwitch.setOn(true, animated: false)
-            } else {
-                comparisonsOutletSwitch.setOn(false, animated: false)
-            }
-            
-            if note.crossRefsDone == true {
-                crossRefsOutletSwitch.setOn(true, animated: false)
-            } else {
-                crossRefsOutletSwitch.setOn(false, animated: false)
-            }
-            
-            if note.aboutGodDone == true {
-                aboutGodOutletSwitch.setOn(true, animated: false)
-            } else {
-                aboutGodOutletSwitch.setOn(false, animated: false)
-            }
-            
-            if note.spiritualResourcesDone == true {
-                spiritualResourcesOutletSwitch.setOn(true, animated: false)
-            } else {
-                spiritualResourcesOutletSwitch.setOn(false, animated: false)
-            }
-            
-            if note.correctsDone == true {
-                correctsOutletSwitch.setOn(true, animated: false)
-            } else {
-                correctsOutletSwitch.setOn(false, animated: false)
-            }
-            
-            if note.takeawaysDone == true {
-                takeawaysOutletSwitch.setOn(true, animated: false)
-            } else {
-                takeawaysOutletSwitch.setOn(false, animated: false)
-            }
-            
-            if note.applicationDone == true {
-                applicationOutletSwitch.setOn(true, animated: false)
-            } else {
-                applicationOutletSwitch.setOn(false, animated: false)
-            }
         }
     }
     
