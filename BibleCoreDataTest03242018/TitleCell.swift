@@ -13,6 +13,7 @@ class TitleCell: UITableViewCell {
 
     @IBOutlet weak var noteTitle: UILabel!
     @IBOutlet weak var sectionsCompleted: UILabel!
+    @IBOutlet weak var lastUpdateDate: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,7 +27,21 @@ class TitleCell: UITableViewCell {
     }
     func configureCell(note: Note){
         noteTitle.text = note.passage
-        sectionsCompleted.text = "You have completed \(note.sectionsCompleted) out of 12 categories."
+        sectionsCompleted.text = "\(note.sectionsCompleted) out of 12"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
         
+        
+        // US English Locale (en_US)
+        dateFormatter.locale = Locale(identifier: "en_US")
+        //print(dateFormatter.string(from: note.lastUpdateDate!)) // Jan 2, 2001
+        if let dateString = note.lastUpdateDate  {
+            lastUpdateDate.text = dateFormatter.string(from: dateString)
+        } else {
+            let today = Date()
+            lastUpdateDate.text = dateFormatter.string(from: today)
+        }
     }
+    
 }

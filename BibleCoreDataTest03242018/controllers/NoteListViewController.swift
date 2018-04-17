@@ -11,7 +11,8 @@ import CoreData
 
 class NoteListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
 
-    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
 
     @IBOutlet weak var titlesTableView: UITableView!
     
@@ -24,26 +25,58 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         titlesTableView.dataSource = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         // Do any additional setup after loading the view, typically from a nib.
-        attemptFetch()
+        attemptFetch(key: "lastUpdateDate", ascending: false)
     }
+    
+    
+    @IBAction func titleBtnPrsd(_ sender: UIButton) {
+    attemptFetch(key: "passage", ascending: true)
+    titlesTableView.reloadData()
+    }
+    
+    @IBAction func progressBtnPrsd(_ sender: UIButton) {
+    attemptFetch(key: "sectionsCompleted", ascending: true)
+    titlesTableView.reloadData()
+    }
+    @IBAction func updateBtnPrsd(_ sender: UIButton) {
+    attemptFetch(key: "lastUpdateDate", ascending: false)
+    titlesTableView.reloadData()
+    }
+    
     
     @objc func addTapped() {
-       let myVC = storyboard?.instantiateViewController(withIdentifier: "notesVCID") as! NotesViewController
-       // nlvcTitle = "Please enter passage here"
-        // myVC.noteTitleName.text
-//        if let thisVCtitletext = noteToEdit?.passage {
-//            myVC.titleText = thisVCtitletext
-//        }
-//              if let newTitle = nlvcTitle {
-//          myVC.newNoteDefaultTitle = newTitle
-//    }
-       // myVC.saveButtonPressed((Any).self)
-//
-//
-        navigationController?.pushViewController(myVC, animated: true)
-
+       //let myVC = storyboard?.instantiateViewController(withIdentifier: "notesVCID") as! NotesViewController
+        
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add New Passage to study", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add", style: .default) { (action) in
+            let newNote = Note(context: self.context)
+            newNote.passage = textField.text!
+            self.saveItems()
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Type the passage here"
+            textField = alertTextField
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
     
+    func saveItems() {
+        
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context \(error)")
+        }
+        
+        attemptFetch(key: "lastUpdateDate", ascending: false)
+    }
+        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sections = controller.sections {
             let sectionInfo = sections[section]
@@ -66,7 +99,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 40
     }
     
     //Two functions below were added to edit existing records
@@ -93,9 +126,9 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    func attemptFetch() {
+    func attemptFetch(key: String, ascending: Bool) {
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
-        let refSort = NSSortDescriptor(key: "passage", ascending: true)
+        let refSort = NSSortDescriptor(key: key, ascending: ascending)
         fetchRequest.sortDescriptors = [refSort]
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)

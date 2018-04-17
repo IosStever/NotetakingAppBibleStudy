@@ -1,13 +1,7 @@
 #  To do list
-Keyboard code-something that works better than what I have
-Delete button
-Completion switches
 User info screen
-Add info to note list VC
-Border to text views-DONE
-Add info buttons to each category
-Fix pop up alert when no title is given
-Background
+Add passage info to note list VC
+Add info/help buttons to each category
 
 
         //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deletePressed))

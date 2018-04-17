@@ -44,6 +44,7 @@ class NotesViewController: UIViewController {
     var categoriesCompleted = 0
     var newNoteDefaultTitle = ""
     var allNotes = NSAttributedString()
+    var notes = [Note]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,20 +91,29 @@ class NotesViewController: UIViewController {
         applicationTV.layer.borderColor = UIColor.black.cgColor
         
         let notificationCenter = NotificationCenter.default
-        //notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
         notificationCenter.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         notificationCenter.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 
         let delete = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deletePressed))
-        let viewAll = UIBarButtonItem(title: "View", style: .plain, target: self, action: #selector(allNotesPressed))
+        let viewAll = UIBarButtonItem(title: "Preview", style: .plain, target: self, action: #selector(allNotesPressed))
         navigationItem.rightBarButtonItems = [delete, viewAll]
-         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backPressed))
+        
+        let back = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backPressed))
+        let save = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed))
+        navigationItem.leftBarButtonItems = [back, save]
+        
+        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backPressed))
         
         if noteToEdit != nil {
             loadNoteData()
         }
     }
+
+
+    
+    
+    
     @objc func keyboardWillShow(_ notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             myScrollView.contentInset.bottom = keyboardSize.height
@@ -119,20 +129,65 @@ class NotesViewController: UIViewController {
         view.endEditing(true)
     }
     
-//    @objc func appMovedToBackground() {
-//
-//    }
+    @objc func appMovedToBackground() {
+    saveData()
+    }
    
+//    func jsonnow() {
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName:"Note")
+//        fetchRequest.resultType = .dictionaryResultType
+//        do {
+//            records = try context.fetch(fetchRequest)
+//        } catch {
+//            print("Error fetching data from CoreData")
+//        }
+//    }
+    
+//    @objc func jsonnow2() {
+//        if let record = notes[1] {
+//        let keys = Array(record.entity.attributesByName.keys)
+//        let dict = record.dictionaryWithValues(forKeys: keys)
+//        
+//        do {
+//            let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+//            let reqJSONStr = String(data: jsonData, encoding: .utf8)
+//            print(reqJSONStr!)
+//        } catch {
+//            }
+//        }
+//    }
+    /*
+    @objc private func fetchRecordsForEntity(_ entity: String, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> [NSManagedObject] {
+        // Create Fetch Request
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        
+        // Helpers
+        var result = [NSManagedObject]()
+        
+        do {
+            // Execute Fetch Request
+            let records = try managedObjectContext.fetch(fetchRequest)
+            
+            if let records = records as? [NSManagedObject] {
+                result = records
+            }
+            print(result)
+        } catch {
+            print("Unable to fetch managed objects for entity \(entity).")
+        }
+        
+        return result
+    }
+   */
     
     fileprivate func saveData() {
-        //print(noteTitleName.text ?? "null")
         var note: Note!
-        //note = noteToEdit //changed
-        if noteToEdit == nil {
-            note = Note(context: context)
-        } else {
-            note = noteToEdit
-        }
+        note = noteToEdit
+//        if noteToEdit == nil {
+//            note = Note(context: context)
+//        } else {
+//            note = noteToEdit
+//        }
         
         if let title = noteTitleName.text {
             note.passage = title
@@ -143,7 +198,6 @@ class NotesViewController: UIViewController {
         if let generalObs = genObsTV.attributedText {
             note.observations = generalObs
         }
-        
         if let keyTerms = keyTermsTV.attributedText  {
             note.keyTerms = keyTerms
         }
@@ -153,14 +207,12 @@ class NotesViewController: UIViewController {
         if let unexpected = unexpectedTV.attributedText {
             note.unexpected = unexpected
         }
-        
         if let comparisons = comparisonsTV.attributedText {
             note.contrast = comparisons
         }
         if let crossRefs = crossRefsTV.attributedText {
             note.crossRefs = crossRefs
         }
-        
         if let aboutGod = aboutGodTV.attributedText  {
             note.aboutGod = aboutGod
         }
@@ -177,6 +229,10 @@ class NotesViewController: UIViewController {
             note.application = application
         }
         note.sectionsCompleted = 0
+        let today = Date()
+        note.lastUpdateDate = today
+        //print(today)
+        
         if contextOutletSwitch.isOn == true  {
             note.contextDone = true
             note.sectionsCompleted += 1
@@ -263,15 +319,22 @@ class NotesViewController: UIViewController {
         }
         
         ad.saveContext()
-        _ = navigationController?.popViewController(animated: true)
+        //_ = navigationController?.popViewController(animated: true)
         
     }
     
-//    func newNote() {
-//        note = Note(context: context)
-//    }
+    func fetchRecord() -> [Note] {
+        
+        do {
+            notes = try context.fetch(Note.fetchRequest())
+            
+        } catch {
+            print("Error fetching data from CoreData")
+        }
+        return notes
+    }
     
-    @IBAction func saveButtonPressed(_ sender: Any) {
+    @objc func saveButtonPressed(_ sender: Any) {
         if noteTitleName.text == "" {
             let alert = UIAlertController(title: "Alert!", message: "Please enter title", preferredStyle: .actionSheet)
             let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
@@ -281,9 +344,7 @@ class NotesViewController: UIViewController {
             popover?.sourceRect = CGRect(x: 32, y: 32, width: 64, height: 64)
             present(alert, animated: true)
         }
-        if noteTitleName.text == nil {
-            noteTitleName.text = newNoteDefaultTitle
-        }
+
         saveData()
     }
     
@@ -343,7 +404,9 @@ class NotesViewController: UIViewController {
     func loadNoteData() {
         if let note = noteToEdit {
             
-            noteTitleName.text = note.passage
+            if let title = note.passage {
+                noteTitleName.text = title
+            }
             
             if let context = note.context {
                 contextTV.attributedText = context as! NSAttributedString
