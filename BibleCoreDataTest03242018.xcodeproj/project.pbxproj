@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DB6C9AE22083600F00F9D750 /* AllNotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C9AE12083600E00F9D750 /* AllNotesVC.swift */; };
+		DB6C9AE420865EB400F9D750 /* HelpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C9AE320865EB300F9D750 /* HelpVC.swift */; };
+		DB6C9AE6208662B400F9D750 /* help.html in Resources */ = {isa = PBXBuildFile; fileRef = DB6C9AE5208662B400F9D750 /* help.html */; };
+		DB6C9B08208A594400F9D750 /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C9B07208A594400F9D750 /* UIViewExt.swift */; };
 		DB77A9EC2066A4BB00069CB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB77A9EB2066A4BB00069CB8 /* AppDelegate.swift */; };
 		DB77A9EE2066A4BB00069CB8 /* NoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB77A9ED2066A4BB00069CB8 /* NoteListViewController.swift */; };
 		DB77A9F12066A4BB00069CB8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB77A9EF2066A4BB00069CB8 /* Main.storyboard */; };
@@ -20,6 +23,9 @@
 
 /* Begin PBXFileReference section */
 		DB6C9AE12083600E00F9D750 /* AllNotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNotesVC.swift; sourceTree = "<group>"; };
+		DB6C9AE320865EB300F9D750 /* HelpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpVC.swift; sourceTree = "<group>"; };
+		DB6C9AE5208662B400F9D750 /* help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = help.html; sourceTree = "<group>"; };
+		DB6C9B07208A594400F9D750 /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
 		DB77A9E82066A4BB00069CB8 /* BibleCoreDataTest03242018.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BibleCoreDataTest03242018.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB77A9EB2066A4BB00069CB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB77A9ED2066A4BB00069CB8 /* NoteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +70,7 @@
 		DB77A9EA2066A4BB00069CB8 /* BibleCoreDataTest03242018 */ = {
 			isa = PBXGroup;
 			children = (
+				DB6C9AE5208662B400F9D750 /* help.html */,
 				DB77AA0A2066B20000069CB8 /* entities */,
 				DB77A9EB2066A4BB00069CB8 /* AppDelegate.swift */,
 				DBB43C912082260700553D87 /* controllers */,
@@ -73,7 +80,7 @@
 				DB77A9FA2066A4BB00069CB8 /* Info.plist */,
 				DB77A9F22066A4BB00069CB8 /* BibleCoreDataTest03242018.xcdatamodeld */,
 				DBB43C8F208147B000553D87 /* TitleCell.swift */,
-				DB6C9AE12083600E00F9D750 /* AllNotesVC.swift */,
+				DB6C9B07208A594400F9D750 /* UIViewExt.swift */,
 			);
 			path = BibleCoreDataTest03242018;
 			sourceTree = "<group>";
@@ -90,6 +97,8 @@
 			children = (
 				DB77A9ED2066A4BB00069CB8 /* NoteListViewController.swift */,
 				DBB43C8C2080389C00553D87 /* NotesViewController.swift */,
+				DB6C9AE12083600E00F9D750 /* AllNotesVC.swift */,
+				DB6C9AE320865EB300F9D750 /* HelpVC.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -154,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB77A9F92066A4BB00069CB8 /* LaunchScreen.storyboard in Resources */,
+				DB6C9AE6208662B400F9D750 /* help.html in Resources */,
 				DB77A9F62066A4BB00069CB8 /* Assets.xcassets in Resources */,
 				DB77A9F12066A4BB00069CB8 /* Main.storyboard in Resources */,
 			);
@@ -167,8 +177,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB77A9F42066A4BB00069CB8 /* BibleCoreDataTest03242018.xcdatamodeld in Sources */,
+				DB6C9AE420865EB400F9D750 /* HelpVC.swift in Sources */,
 				DB77A9EE2066A4BB00069CB8 /* NoteListViewController.swift in Sources */,
 				DBB43C90208147B000553D87 /* TitleCell.swift in Sources */,
+				DB6C9B08208A594400F9D750 /* UIViewExt.swift in Sources */,
 				DB77A9EC2066A4BB00069CB8 /* AppDelegate.swift in Sources */,
 				DB6C9AE22083600F00F9D750 /* AllNotesVC.swift in Sources */,
 				DBB43C8D2080389C00553D87 /* NotesViewController.swift in Sources */,

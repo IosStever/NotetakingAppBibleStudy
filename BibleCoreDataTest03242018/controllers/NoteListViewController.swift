@@ -11,6 +11,11 @@ import CoreData
 
 class NoteListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
 
+    @IBOutlet weak var titleBtn: UIButton!
+    @IBOutlet weak var progressBtn: UIButton!
+    @IBOutlet weak var lastUpdateBtn: UIButton!
+    
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
 
@@ -24,28 +29,27 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         titlesTableView.delegate = self
         titlesTableView.dataSource = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-        // Do any additional setup after loading the view, typically from a nib.
+
         attemptFetch(key: "lastUpdateDate", ascending: false)
     }
     
     
     @IBAction func titleBtnPrsd(_ sender: UIButton) {
-    attemptFetch(key: "passage", ascending: true)
-    titlesTableView.reloadData()
+        attemptFetch(key: "passage", ascending: true)
+    
     }
     
     @IBAction func progressBtnPrsd(_ sender: UIButton) {
     attemptFetch(key: "sectionsCompleted", ascending: true)
-    titlesTableView.reloadData()
+    //titlesTableView.reloadData()
     }
     @IBAction func updateBtnPrsd(_ sender: UIButton) {
     attemptFetch(key: "lastUpdateDate", ascending: false)
-    titlesTableView.reloadData()
+    //titlesTableView.reloadData()
     }
     
     
     @objc func addTapped() {
-       //let myVC = storyboard?.instantiateViewController(withIdentifier: "notesVCID") as! NotesViewController
         
         var textField = UITextField()
         
@@ -53,12 +57,20 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             let newNote = Note(context: self.context)
-            newNote.passage = textField.text!
+            //if let newTitle = textField.text {
+                newNote.passage = textField.text
+//            } else {
+//                newNote.passage = "Oops you didn't give me a title"
+//            }
+            let today = Date()
+            
+            newNote.lastUpdateDate = today
             self.saveItems()
+            
         }
         
         alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Type the passage here"
+            alertTextField.placeholder = "Note title"
             textField = alertTextField
         }
         
@@ -89,6 +101,13 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "notesCell", for: indexPath) as! TitleCell
         configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
+        if (indexPath.row % 2 == 0) {
+            cell.backgroundColor = UIColor.white
+        }
+        else
+        {
+            cell.backgroundColor = UIColor.lightGray.withAlphaComponent(0.25)
+        }
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,7 +123,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     
     //Two functions below were added to edit existing records
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let objs = controller.fetchedObjects, objs.count > 0 { //Before you could write "where" instead of the comma
+        if let objs = controller.fetchedObjects, objs.count > 0 {
             let note = objs[indexPath.row]
             performSegue(withIdentifier: "notesSegue", sender: note)
         }
@@ -118,7 +137,6 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
         }
-        
     }
     func configureCell (cell: TitleCell, indexPath: NSIndexPath) {
         let note = controller.object(at: indexPath as IndexPath)
@@ -128,8 +146,14 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func attemptFetch(key: String, ascending: Bool) {
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
-        let refSort = NSSortDescriptor(key: key, ascending: ascending)
-        fetchRequest.sortDescriptors = [refSort]
+        if key == "lastUpdateDate" {
+         let refSort = NSSortDescriptor(key: key, ascending: ascending)
+            fetchRequest.sortDescriptors = [refSort]
+        } else {
+        let refSort = NSSortDescriptor(key: key, ascending: ascending, selector: #selector(NSString.caseInsensitiveCompare))
+            fetchRequest.sortDescriptors = [refSort]
+        }
+        
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -138,15 +162,14 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         self.controller = controller
         
         do {
-            
             try controller.performFetch()
-            
         } catch {
             
             let error = error as NSError
             print("\(error)")
-            
         }
+        titlesTableView.reloadData()
+
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

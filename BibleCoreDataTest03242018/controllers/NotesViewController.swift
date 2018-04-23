@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class NotesViewController: UIViewController {
-    @IBOutlet weak var myScrollView: UIScrollView!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var noteTitleName: UITextField!
     
     @IBOutlet weak var contextTV: UITextView!
@@ -44,85 +44,72 @@ class NotesViewController: UIViewController {
     var categoriesCompleted = 0
     var newNoteDefaultTitle = ""
     var allNotes = NSAttributedString()
-    var notes = [Note]()
+    //var notes = [Note]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let scrollHeight : CGFloat = 2500
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
         view.addGestureRecognizer(tapGesture)
-        myScrollView.contentSize.height = scrollHeight
-        contextTV.allowsEditingTextAttributes=true
-        genObsTV.allowsEditingTextAttributes=true
-        keyTermsTV.allowsEditingTextAttributes=true
-        difficultiesTV.allowsEditingTextAttributes=true
-        unexpectedTV.allowsEditingTextAttributes=true
-        comparisonsTV.allowsEditingTextAttributes=true
-        crossRefsTV.allowsEditingTextAttributes=true
-        aboutGodTV.allowsEditingTextAttributes=true
-        spiritualResourcesTV.allowsEditingTextAttributes=true
-        correctsTV.allowsEditingTextAttributes=true
-        takeawaysTV.allowsEditingTextAttributes=true
-        applicationTV.allowsEditingTextAttributes=true
-        
-        contextTV.layer.borderWidth = 1
-        contextTV.layer.borderColor = UIColor.blue.cgColor
-        genObsTV.layer.borderWidth = 1
-        genObsTV.layer.borderColor = UIColor.black.cgColor
-        keyTermsTV.layer.borderWidth = 1
-        keyTermsTV.layer.borderColor = UIColor.blue.cgColor
-        difficultiesTV.layer.borderWidth = 1
-        difficultiesTV.layer.borderColor = UIColor.black.cgColor
-        unexpectedTV.layer.borderWidth = 1
-        unexpectedTV.layer.borderColor = UIColor.blue.cgColor
-        comparisonsTV.layer.borderWidth = 1
-        comparisonsTV.layer.borderColor = UIColor.black.cgColor
-        crossRefsTV.layer.borderWidth = 1
-        crossRefsTV.layer.borderColor = UIColor.blue.cgColor
-        aboutGodTV.layer.borderWidth = 1
-        aboutGodTV.layer.borderColor = UIColor.black.cgColor
-        spiritualResourcesTV.layer.borderWidth = 1
-        spiritualResourcesTV.layer.borderColor = UIColor.blue.cgColor
-        correctsTV.layer.borderWidth = 1
-        correctsTV.layer.borderColor = UIColor.black.cgColor
-        takeawaysTV.layer.borderWidth = 1
-        takeawaysTV.layer.borderColor = UIColor.blue.cgColor
-        applicationTV.layer.borderWidth = 1
-        applicationTV.layer.borderColor = UIColor.black.cgColor
-        
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-
-        let delete = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deletePressed))
+        notificationCenter.addObserver(self, selector: #selector(self.keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(self.keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        let allTextViews = [genObsTV, difficultiesTV, comparisonsTV, aboutGodTV, correctsTV, applicationTV, contextTV, keyTermsTV, unexpectedTV, crossRefsTV, spiritualResourcesTV, takeawaysTV]
+        for i in allTextViews {
+            i?.allowsEditingTextAttributes=true
+        }
+        
+        let blackTextViews = [genObsTV, difficultiesTV, comparisonsTV, aboutGodTV, correctsTV, applicationTV]
+        for i in blackTextViews {
+            i?.layer.borderWidth = 1
+            i?.layer.borderColor = UIColor.black.cgColor
+        }
+        let blueTextViews = [contextTV, keyTermsTV, unexpectedTV, crossRefsTV, spiritualResourcesTV, takeawaysTV]
+        for i in blueTextViews {
+            i?.layer.borderWidth = 1
+            i?.layer.borderColor = UIColor.blue.cgColor
+        }
+        
+        let delete = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteBtnPressed))
         let viewAll = UIBarButtonItem(title: "Preview", style: .plain, target: self, action: #selector(allNotesPressed))
-        navigationItem.rightBarButtonItems = [delete, viewAll]
-        
-        let back = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backPressed))
+        let help = UIBarButtonItem(title: "Help", style: .plain, target: self, action: #selector(helpPressed))
         let save = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed))
-        navigationItem.leftBarButtonItems = [back, save]
-        
-        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backPressed))
+        navigationItem.rightBarButtonItems = [delete, viewAll, help, save]
+        //let back = UIBarButtonItem(title: "⬅List", style: .plain, target: self, action: #selector(backPressed))
+
         
         if noteToEdit != nil {
             loadNoteData()
         }
     }
 
-
+    @objc func keyboardWillShow(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+                return
+        }
+        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
+        scrollView.contentInset = contentInset
+    }
     
-    
-    
-    @objc func keyboardWillShow(_ notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            myScrollView.contentInset.bottom = keyboardSize.height
+    override func viewWillDisappear(_ animated : Bool) {
+        super.viewWillDisappear(animated)
+        
+        if self.isMovingFromParentViewController {
+            backPressed()
         }
     }
-    
-    @objc func keyboardWillHide(_ notification: NSNotification) {
-        myScrollView.contentInset.bottom = 0
+    @objc func keyboardWillHide(notification:NSNotification){
+
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+        self.scrollView.contentInset = contentInset
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     
     @objc func didTapView(gesture: UITapGestureRecognizer) {
         // This should hide keyboard for the view.
@@ -133,65 +120,14 @@ class NotesViewController: UIViewController {
     saveData()
     }
    
-//    func jsonnow() {
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName:"Note")
-//        fetchRequest.resultType = .dictionaryResultType
-//        do {
-//            records = try context.fetch(fetchRequest)
-//        } catch {
-//            print("Error fetching data from CoreData")
-//        }
-//    }
-    
-//    @objc func jsonnow2() {
-//        if let record = notes[1] {
-//        let keys = Array(record.entity.attributesByName.keys)
-//        let dict = record.dictionaryWithValues(forKeys: keys)
-//        
-//        do {
-//            let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
-//            let reqJSONStr = String(data: jsonData, encoding: .utf8)
-//            print(reqJSONStr!)
-//        } catch {
-//            }
-//        }
-//    }
-    /*
-    @objc private func fetchRecordsForEntity(_ entity: String, inManagedObjectContext managedObjectContext: NSManagedObjectContext) -> [NSManagedObject] {
-        // Create Fetch Request
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
-        
-        // Helpers
-        var result = [NSManagedObject]()
-        
-        do {
-            // Execute Fetch Request
-            let records = try managedObjectContext.fetch(fetchRequest)
-            
-            if let records = records as? [NSManagedObject] {
-                result = records
-            }
-            print(result)
-        } catch {
-            print("Unable to fetch managed objects for entity \(entity).")
-        }
-        
-        return result
-    }
-   */
-    
     fileprivate func saveData() {
         var note: Note!
         note = noteToEdit
-//        if noteToEdit == nil {
-//            note = Note(context: context)
-//        } else {
-//            note = noteToEdit
-//        }
         
         if let title = noteTitleName.text {
             note.passage = title
         }
+
         if let passageContext = contextTV.attributedText {
             note.context = passageContext
         }
@@ -228,10 +164,10 @@ class NotesViewController: UIViewController {
         if let application = applicationTV.attributedText {
             note.application = application
         }
+  
         note.sectionsCompleted = 0
         let today = Date()
         note.lastUpdateDate = today
-        //print(today)
         
         if contextOutletSwitch.isOn == true  {
             note.contextDone = true
@@ -323,16 +259,6 @@ class NotesViewController: UIViewController {
         
     }
     
-    func fetchRecord() -> [Note] {
-        
-        do {
-            notes = try context.fetch(Note.fetchRequest())
-            
-        } catch {
-            print("Error fetching data from CoreData")
-        }
-        return notes
-    }
     
     @objc func saveButtonPressed(_ sender: Any) {
         if noteTitleName.text == "" {
@@ -347,10 +273,31 @@ class NotesViewController: UIViewController {
 
         saveData()
     }
+
+    @objc func deleteBtnPressed() {
+        let alert = UIAlertController(title: "Delete this set of notes?", message: "This cannot be undone!", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let delete = UIAlertAction(title: "Delete", style: .default) { (action: UIAlertAction) in
+                        if self.noteToEdit != nil {
+                            context.delete((self.noteToEdit!))
+                            ad.saveContext()
+                        }
+            _ = self.navigationController?.popViewController(animated: true)
+        }
+        alert.addAction(delete)
+        alert.addAction(cancelAction)
+        let popover = alert.popoverPresentationController
+        popover?.sourceView = self.view
+        popover?.sourceRect = CGRect(x: 32, y: 32, width: 64, height: 64)
+        present(alert, animated: true)
+    }
     
+
     func allNotesTogether() {
-        let attrs = [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14)]
-        //        var boldString = NSMutableAttributedString(string: boldText, attributes:attrs)
+        saveData()
+        loadNoteData()
+        let attrs = [NSAttributedStringKey.font : UIFont(name: "Georgia-Bold", size: 12)!]
+        allNotes = NSAttributedString(string: "")
         if let context = contextTV.attributedText {
             allNotes = allNotes + NSAttributedString(string: "Context\n", attributes: attrs)
             allNotes = allNotes + context
@@ -470,7 +417,7 @@ class NotesViewController: UIViewController {
         _ = navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func backPressed(_ sender: Any) {
+    @objc func backPressed() {
         if noteToEdit != nil || noteTitleName != nil {
             saveData()
         }
@@ -488,7 +435,13 @@ class NotesViewController: UIViewController {
         navigationController?.pushViewController(myVC, animated: true)
     }
     
+    @IBAction func helpPressed(_ sender: Any) {
+        let myVC = storyboard?.instantiateViewController(withIdentifier: "helpID") as! HelpVC
+        navigationController?.pushViewController(myVC, animated: true)
+    }
+    
 }
+
 
 func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString
 {
