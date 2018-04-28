@@ -15,9 +15,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var progressBtn: UIButton!
     @IBOutlet weak var lastUpdateBtn: UIButton!
     
-    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
 
     @IBOutlet weak var titlesTableView: UITableView!
     
@@ -36,8 +34,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func titleBtnPrsd(_ sender: UIButton) {
         attemptFetch(key: "passage", ascending: true)
-    
-    }
+        }
     
     @IBAction func progressBtnPrsd(_ sender: UIButton) {
     attemptFetch(key: "sectionsCompleted", ascending: true)
@@ -57,11 +54,8 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             let newNote = Note(context: self.context)
-            //if let newTitle = textField.text {
                 newNote.passage = textField.text
-//            } else {
-//                newNote.passage = "Oops you didn't give me a title"
-//            }
+
             let today = Date()
             
             newNote.lastUpdateDate = today
@@ -110,6 +104,10 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         }
         return cell
     }
+    override func viewDidAppear(_ animated: Bool) {
+        titlesTableView.reloadData()
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         if let sections = controller.sections {
             return sections.count

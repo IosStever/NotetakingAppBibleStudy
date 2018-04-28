@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class NotesViewController: UIViewController {
+class NotesViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var noteTitleName: UITextField!
     
@@ -39,13 +39,11 @@ class NotesViewController: UIViewController {
     @IBOutlet weak var takeawaysOutletSwitch: UISwitch!
     @IBOutlet weak var applicationOutletSwitch: UISwitch!
     
-    //var note: Note!
     var noteToEdit: Note?
     var categoriesCompleted = 0
     var newNoteDefaultTitle = ""
     var allNotes = NSAttributedString()
-    //var notes = [Note]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
@@ -70,14 +68,26 @@ class NotesViewController: UIViewController {
             i?.layer.borderWidth = 1
             i?.layer.borderColor = UIColor.blue.cgColor
         }
+        contextTV.delegate = self
+        genObsTV.delegate = self
+        keyTermsTV.delegate = self
+        difficultiesTV.delegate = self
+        unexpectedTV.delegate = self
+        comparisonsTV.delegate = self
+        crossRefsTV.delegate = self
+        aboutGodTV.delegate = self
+        spiritualResourcesTV.delegate = self
+        correctsTV.delegate = self
+        takeawaysTV.delegate = self
+        applicationTV.delegate = self
         
         let delete = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteBtnPressed))
         let viewAll = UIBarButtonItem(title: "Preview", style: .plain, target: self, action: #selector(allNotesPressed))
         let help = UIBarButtonItem(title: "Help", style: .plain, target: self, action: #selector(helpPressed))
         let save = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed))
-        navigationItem.rightBarButtonItems = [delete, viewAll, help, save]
-        //let back = UIBarButtonItem(title: "⬅List", style: .plain, target: self, action: #selector(backPressed))
+        //let changeFont = UIBarButtonItem(title: "BigFont", style: .plain, target: self, action: #selector(backPressed))
 
+        navigationItem.rightBarButtonItems = [delete, viewAll, help, save]
         
         if noteToEdit != nil {
             loadNoteData()
@@ -120,6 +130,60 @@ class NotesViewController: UIViewController {
     saveData()
     }
    
+    @objc func nextTextView(textView: UITextView) {
+            let allTextViews: [UITextView] = [contextTV, genObsTV, keyTermsTV, difficultiesTV, unexpectedTV, comparisonsTV, crossRefsTV, aboutGodTV, spiritualResourcesTV, correctsTV,  takeawaysTV, applicationTV]
+        var x = 0
+        while x < allTextViews.count-1 {
+        if allTextViews[x].isFirstResponder {
+            x = x + 1
+            var y = x
+            var height = CGFloat(0.0)
+            while y >= 0 {
+                height = height + allTextViews[y].frame.size.height
+                y = y - 1
+            }
+            scrollView.contentOffset = CGPoint(x: 0.0, y: height)
+            allTextViews[x].becomeFirstResponder()
+
+            break
+        }
+            x = x + 1
+        }
+    }
+    
+    @objc func prevTextView(textView: UITextView) {
+        let allTextViews: [UITextView] = [contextTV, genObsTV, keyTermsTV, difficultiesTV, unexpectedTV, comparisonsTV, crossRefsTV, aboutGodTV, spiritualResourcesTV, correctsTV,  takeawaysTV, applicationTV]
+        var x = 1
+        while x < allTextViews.count {
+            if allTextViews[x].isFirstResponder {
+                x = x - 1
+                var y = x
+                var height = CGFloat(0.0)
+                while y >= 0 {
+                    height = height + allTextViews[y].frame.size.height
+                    y = y - 1
+                }
+                scrollView.contentOffset = CGPoint(x: 0.0, y: height)
+
+                allTextViews[x].becomeFirstResponder()
+
+                break
+            }
+            x = x + 1
+        }
+    }
+
+    override var keyCommands: [UIKeyCommand]? {
+        return [
+            UIKeyCommand(input: "z", modifierFlags: .alternate, action: #selector(nextTextView), discoverabilityTitle: "Next Text View"),
+            UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .shift,
+                         //UIKeyModifierFlags(rawValue: 0) for no modifier
+                action: #selector(nextTextView), discoverabilityTitle: "Next Text View"),
+            UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .shift,
+                action: #selector(prevTextView), discoverabilityTitle: "Previous Text View")
+        ]
+    }
+    
     fileprivate func saveData() {
         var note: Note!
         note = noteToEdit
@@ -422,6 +486,7 @@ class NotesViewController: UIViewController {
             saveData()
         }
         _ = navigationController?.popViewController(animated: true)
+        
     }
     
     @IBAction func allNotesPressed(_ sender: Any) {
@@ -439,9 +504,22 @@ class NotesViewController: UIViewController {
         let myVC = storyboard?.instantiateViewController(withIdentifier: "helpID") as! HelpVC
         navigationController?.pushViewController(myVC, animated: true)
     }
+ 
+//    @objc func changeTextViewFont() {
+//        let allTextViews = [genObsTV, difficultiesTV, comparisonsTV, aboutGodTV, correctsTV, applicationTV, contextTV, keyTermsTV, unexpectedTV, crossRefsTV, spiritualResourcesTV, takeawaysTV]
+//        for i in allTextViews {
+//            i?.font = UIFont(name: "Georgia", size: 16)
+//        }
+//    }
     
 }
 
+extension UITextView {
+    @objc func nextTV(position: Int) {
+        let position = self.tag
+        print(position)
+    }
+}
 
 func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString
 {
