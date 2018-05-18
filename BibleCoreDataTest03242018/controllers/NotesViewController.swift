@@ -39,11 +39,12 @@ class NotesViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var takeawaysOutletSwitch: UISwitch!
     @IBOutlet weak var applicationOutletSwitch: UISwitch!
     
+    
     var noteToEdit: Note?
     var categoriesCompleted = 0
     var newNoteDefaultTitle = ""
     var allNotes = NSAttributedString()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
@@ -68,32 +69,25 @@ class NotesViewController: UIViewController, UITextViewDelegate {
             i?.layer.borderWidth = 1
             i?.layer.borderColor = UIColor.blue.cgColor
         }
-        contextTV.delegate = self
-        genObsTV.delegate = self
-        keyTermsTV.delegate = self
-        difficultiesTV.delegate = self
-        unexpectedTV.delegate = self
-        comparisonsTV.delegate = self
-        crossRefsTV.delegate = self
-        aboutGodTV.delegate = self
-        spiritualResourcesTV.delegate = self
-        correctsTV.delegate = self
-        takeawaysTV.delegate = self
-        applicationTV.delegate = self
+        let allSwitches = [contextOutletSwitch, observationsOutletSwitch, keyTermsOutletSwitch, difficultiesOutletSwitch, unexpectedOutletSwitch, comparisonsOutletSwitch, crossRefsOutletSwitch, aboutGodOutletSwitch, spiritualResourcesOutletSwitch, correctsOutletSwitch, takeawaysOutletSwitch, applicationOutletSwitch]
+        for i in allSwitches {
+            i?.tintColor = UIColor.gray
+        }
+        
         
         let delete = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteBtnPressed))
         let viewAll = UIBarButtonItem(title: "Preview", style: .plain, target: self, action: #selector(allNotesPressed))
         let help = UIBarButtonItem(title: "Help", style: .plain, target: self, action: #selector(helpPressed))
         let save = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonPressed))
-        //let changeFont = UIBarButtonItem(title: "BigFont", style: .plain, target: self, action: #selector(backPressed))
-
-        navigationItem.rightBarButtonItems = [delete, viewAll, help, save]
+        let changeFont = UIBarButtonItem(title: "Font+", style: .plain, target: self, action: #selector(formatBtnPressed(_:)))
+        
+        navigationItem.rightBarButtonItems = [delete, viewAll, help, save, changeFont]
         
         if noteToEdit != nil {
             loadNoteData()
         }
     }
-
+    //MARK: Show/Hide Keyboard
     @objc func keyboardWillShow(notification: Notification) {
         guard let userInfo = notification.userInfo,
             let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
@@ -111,7 +105,7 @@ class NotesViewController: UIViewController, UITextViewDelegate {
         }
     }
     @objc func keyboardWillHide(notification:NSNotification){
-
+        
         let contentInset:UIEdgeInsets = UIEdgeInsets.zero
         self.scrollView.contentInset = contentInset
     }
@@ -120,70 +114,16 @@ class NotesViewController: UIViewController, UITextViewDelegate {
         NotificationCenter.default.removeObserver(self)
     }
     
-    
     @objc func didTapView(gesture: UITapGestureRecognizer) {
         // This should hide keyboard for the view.
         view.endEditing(true)
     }
     
     @objc func appMovedToBackground() {
-    saveData()
-    }
-   
-    @objc func nextTextView(textView: UITextView) {
-            let allTextViews: [UITextView] = [contextTV, genObsTV, keyTermsTV, difficultiesTV, unexpectedTV, comparisonsTV, crossRefsTV, aboutGodTV, spiritualResourcesTV, correctsTV,  takeawaysTV, applicationTV]
-        var x = 0
-        while x < allTextViews.count-1 {
-        if allTextViews[x].isFirstResponder {
-            x = x + 1
-            var y = x
-            var height = CGFloat(0.0)
-            while y >= 0 {
-                height = height + allTextViews[y].frame.size.height
-                y = y - 1
-            }
-            scrollView.contentOffset = CGPoint(x: 0.0, y: height)
-            allTextViews[x].becomeFirstResponder()
-
-            break
-        }
-            x = x + 1
-        }
+        saveData()
     }
     
-    @objc func prevTextView(textView: UITextView) {
-        let allTextViews: [UITextView] = [contextTV, genObsTV, keyTermsTV, difficultiesTV, unexpectedTV, comparisonsTV, crossRefsTV, aboutGodTV, spiritualResourcesTV, correctsTV,  takeawaysTV, applicationTV]
-        var x = 1
-        while x < allTextViews.count {
-            if allTextViews[x].isFirstResponder {
-                x = x - 1
-                var y = x
-                var height = CGFloat(0.0)
-                while y >= 0 {
-                    height = height + allTextViews[y].frame.size.height
-                    y = y - 1
-                }
-                scrollView.contentOffset = CGPoint(x: 0.0, y: height)
-
-                allTextViews[x].becomeFirstResponder()
-
-                break
-            }
-            x = x + 1
-        }
-    }
-
-    override var keyCommands: [UIKeyCommand]? {
-        return [
-            UIKeyCommand(input: "z", modifierFlags: .alternate, action: #selector(nextTextView), discoverabilityTitle: "Next Text View"),
-            UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .shift,
-                         //UIKeyModifierFlags(rawValue: 0) for no modifier
-                action: #selector(nextTextView), discoverabilityTitle: "Next Text View"),
-            UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .shift,
-                action: #selector(prevTextView), discoverabilityTitle: "Previous Text View")
-        ]
-    }
-    
+    //MARK: SaveData
     fileprivate func saveData() {
         var note: Note!
         note = noteToEdit
@@ -191,7 +131,7 @@ class NotesViewController: UIViewController, UITextViewDelegate {
         if let title = noteTitleName.text {
             note.passage = title
         }
-
+        
         if let passageContext = contextTV.attributedText {
             note.context = passageContext
         }
@@ -228,7 +168,7 @@ class NotesViewController: UIViewController, UITextViewDelegate {
         if let application = applicationTV.attributedText {
             note.application = application
         }
-  
+        
         note.sectionsCompleted = 0
         let today = Date()
         note.lastUpdateDate = today
@@ -322,6 +262,81 @@ class NotesViewController: UIViewController, UITextViewDelegate {
         //_ = navigationController?.popViewController(animated: true)
         
     }
+    //MARK: Keyboard shortcuts
+    @objc func nextTextView(textView: UITextView) {
+        let allTextViews: [UITextView] = [contextTV, genObsTV, keyTermsTV, difficultiesTV, unexpectedTV, comparisonsTV, crossRefsTV, aboutGodTV, spiritualResourcesTV, correctsTV,  takeawaysTV, applicationTV]
+        var x = 0
+        while x < allTextViews.count-1 {
+            if allTextViews[x].isFirstResponder {
+                x = x + 1
+                var y = x
+                var height = CGFloat(0.0)
+                while y >= 0 {
+                    height = height + allTextViews[y].frame.size.height
+                    y = y - 1
+                }
+                scrollView.contentOffset = CGPoint(x: 0.0, y: height)
+                allTextViews[x].becomeFirstResponder()
+                break
+            }
+            x = x + 1
+        }
+    }
+    
+    @objc func prevTextView(textView: UITextView) {
+        let allTextViews: [UITextView] = [contextTV, genObsTV, keyTermsTV, difficultiesTV, unexpectedTV, comparisonsTV, crossRefsTV, aboutGodTV, spiritualResourcesTV, correctsTV,  takeawaysTV, applicationTV]
+        var x = 1
+        while x < allTextViews.count {
+            if allTextViews[x].isFirstResponder {
+                x = x - 1
+                var y = x
+                var height = CGFloat(0.0)
+                while y >= 0 {
+                    height = height + allTextViews[y].frame.size.height
+                    y = y - 1
+                }
+                scrollView.contentOffset = CGPoint(x: 0.0, y: height)
+                
+                allTextViews[x].becomeFirstResponder()
+                
+                break
+            }
+            x = x + 1
+        }
+    }
+    
+    override var keyCommands: [UIKeyCommand]? {
+        return [
+            UIKeyCommand(input: "z", modifierFlags: .alternate, action: #selector(nextTextView), discoverabilityTitle: "Next Text View"),
+            UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .alternate,
+                         //UIKeyModifierFlags(rawValue: 0) for no modifier
+                action: #selector(nextTextView), discoverabilityTitle: "Next Text View"),
+            UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .alternate,
+                         action: #selector(prevTextView), discoverabilityTitle: "Previous Text View")
+        ]
+    }
+    
+    
+    // MARK: Buttons
+    
+    @IBAction func formatBtnPressed(_ sender: Any) {
+        let allTextViews: [UITextView] = [contextTV, genObsTV, keyTermsTV, difficultiesTV, unexpectedTV, comparisonsTV, crossRefsTV, aboutGodTV, spiritualResourcesTV, correctsTV,  takeawaysTV, applicationTV]
+        var x = 0
+        while x < allTextViews.count {
+            if allTextViews[x].isFirstResponder {
+                let range = allTextViews[x].selectedRange
+                let string = NSMutableAttributedString(attributedString:
+                    allTextViews[x].attributedText)
+                let attributes = [NSAttributedStringKey.font : UIFont(name: "Georgia", size: 16)!]
+                string.addAttributes(attributes, range: range)
+                allTextViews[x].attributedText = string
+                print(x)
+                //allTextViews[x].selectedRange = range
+            }
+            x = x + 1
+        }
+        
+    }
     
     
     @objc func saveButtonPressed(_ sender: Any) {
@@ -334,18 +349,18 @@ class NotesViewController: UIViewController, UITextViewDelegate {
             popover?.sourceRect = CGRect(x: 32, y: 32, width: 64, height: 64)
             present(alert, animated: true)
         }
-
+        
         saveData()
     }
-
+    
     @objc func deleteBtnPressed() {
         let alert = UIAlertController(title: "Delete this set of notes?", message: "This cannot be undone!", preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let delete = UIAlertAction(title: "Delete", style: .default) { (action: UIAlertAction) in
-                        if self.noteToEdit != nil {
-                            context.delete((self.noteToEdit!))
-                            ad.saveContext()
-                        }
+            if self.noteToEdit != nil {
+                context.delete((self.noteToEdit!))
+                ad.saveContext()
+            }
             _ = self.navigationController?.popViewController(animated: true)
         }
         alert.addAction(delete)
@@ -354,122 +369,6 @@ class NotesViewController: UIViewController, UITextViewDelegate {
         popover?.sourceView = self.view
         popover?.sourceRect = CGRect(x: 32, y: 32, width: 64, height: 64)
         present(alert, animated: true)
-    }
-    
-
-    func allNotesTogether() {
-        saveData()
-        loadNoteData()
-        let attrs = [NSAttributedStringKey.font : UIFont(name: "Georgia-Bold", size: 12)!]
-        allNotes = NSAttributedString(string: "")
-        if let context = contextTV.attributedText {
-            allNotes = allNotes + NSAttributedString(string: "Context\n", attributes: attrs)
-            allNotes = allNotes + context
-        }
-        if let context = genObsTV.attributedText {
-            allNotes = allNotes + NSAttributedString(string: "\n\nGeneral observations\n", attributes: attrs)
-            allNotes = allNotes + context
-        }
-        if let context = keyTermsTV.attributedText {
-            allNotes = allNotes + NSAttributedString(string: "\n\nKey terms\n", attributes: attrs)
-            allNotes = allNotes + context
-        }
-        if let context = difficultiesTV.attributedText {
-            allNotes = allNotes + NSAttributedString(string: "\n\nDifficulties\n", attributes: attrs)
-            allNotes = allNotes + context
-        }
-        if let context = unexpectedTV.attributedText {
-            allNotes = allNotes + NSAttributedString(string: "\n\nUnexpected\n", attributes: attrs)
-            allNotes = allNotes + context
-        }
-        if let context = comparisonsTV.attributedText {
-            allNotes = allNotes + NSAttributedString(string: "\n\nComparisons/contrasts\n", attributes: attrs)
-            allNotes = allNotes + context
-        }
-        if let context = crossRefsTV.attributedText {
-            allNotes = allNotes + NSAttributedString(string: "\n\nCross References\n", attributes: attrs)
-            allNotes = allNotes + context
-        }
-        if let context = aboutGodTV.attributedText {
-            allNotes = allNotes + NSAttributedString(string: "\n\nWhat this tells us about God\n", attributes: attrs)
-            allNotes = allNotes + context
-        }
-        if let context = spiritualResourcesTV.attributedText {
-            allNotes = allNotes + NSAttributedString(string: "\n\nSpiritual Resources\n", attributes: attrs)
-            allNotes = allNotes + context
-        }
-        if let context = correctsTV.attributedText {
-            allNotes = allNotes + NSAttributedString(string: "\n\nCorrects conduct or error\n", attributes: attrs)
-            allNotes = allNotes + context
-        }
-        if let context = takeawaysTV.attributedText {
-            allNotes = allNotes + NSAttributedString(string: "\n\nTakeaways\n", attributes: attrs)
-            allNotes = allNotes + context
-        }
-        if let context = applicationTV.attributedText {
-            allNotes = allNotes + NSAttributedString(string: "\n\nApplication\n", attributes: attrs)
-            allNotes = allNotes + context
-        }
-    }
-    
-    func loadNoteData() {
-        if let note = noteToEdit {
-            
-            if let title = note.passage {
-                noteTitleName.text = title
-            }
-            
-            if let context = note.context {
-                contextTV.attributedText = context as! NSAttributedString
-            }
-            if let observations = note.observations {
-                genObsTV.attributedText = observations as! NSAttributedString
-            }
-            if let keyTerms = note.keyTerms {
-                keyTermsTV.attributedText = keyTerms as! NSAttributedString
-            }
-            if let difficulties = note.difficulties {
-                difficultiesTV.attributedText = difficulties as! NSAttributedString
-            }
-            if let unexpected=note.unexpected {
-                unexpectedTV.attributedText = unexpected as! NSAttributedString
-            }
-            if let contrast = note.contrast {
-                comparisonsTV.attributedText = contrast as! NSAttributedString
-            }
-            if let crossRefs = note.crossRefs {
-                crossRefsTV.attributedText = crossRefs as! NSAttributedString
-            }
-            if let aboutGod = note.aboutGod {
-                aboutGodTV.attributedText = aboutGod as! NSAttributedString
-            }
-            if let spiritualResources = note.spiritualResources {
-                spiritualResourcesTV.attributedText = spiritualResources as! NSAttributedString
-            }
-            if  let corrects = note.corrects {
-                correctsTV.attributedText = corrects as! NSAttributedString
-            }
-            if let takeaways = note.takeaways {
-                takeawaysTV.attributedText = takeaways as! NSAttributedString
-            }
-            if let application = note.application {
-                applicationTV.attributedText = application as! NSAttributedString
-            }
-
-            contextOutletSwitch.setOn(note.contextDone, animated: false)
-            observationsOutletSwitch.setOn(note.observationsDone, animated: false)
-            keyTermsOutletSwitch.setOn(note.keyTermsDone, animated: false)
-            difficultiesOutletSwitch.setOn(note.difficultiesDone, animated: false)
-            unexpectedOutletSwitch.setOn(note.unexpectedDone, animated: false)
-            comparisonsOutletSwitch.setOn(note.contrastDone, animated: false)
-            crossRefsOutletSwitch.setOn(note.crossRefsDone, animated: false)
-            aboutGodOutletSwitch.setOn(note.aboutGodDone, animated: false)
-            spiritualResourcesOutletSwitch.setOn(note.spiritualResourcesDone, animated: false)
-            correctsOutletSwitch.setOn(note.correctsDone, animated: false)
-            takeawaysOutletSwitch.setOn(note.takeawaysDone, animated: false)
-            applicationOutletSwitch.setOn(note.applicationDone, animated: false)
-            
-        }
     }
     
     
@@ -490,7 +389,6 @@ class NotesViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func allNotesPressed(_ sender: Any) {
-        //if noteToEdit != nil || noteTitleName != nil {
         allNotesTogether()
         let myVC = storyboard?.instantiateViewController(withIdentifier: "allNotesStoryboardID") as! AllNotesVC
         myVC.allNotesVar = allNotes
@@ -501,25 +399,60 @@ class NotesViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func helpPressed(_ sender: Any) {
+        saveData()
         let myVC = storyboard?.instantiateViewController(withIdentifier: "helpID") as! HelpVC
         navigationController?.pushViewController(myVC, animated: true)
     }
- 
-//    @objc func changeTextViewFont() {
-//        let allTextViews = [genObsTV, difficultiesTV, comparisonsTV, aboutGodTV, correctsTV, applicationTV, contextTV, keyTermsTV, unexpectedTV, crossRefsTV, spiritualResourcesTV, takeawaysTV]
-//        for i in allTextViews {
-//            i?.font = UIFont(name: "Georgia", size: 16)
-//        }
-//    }
+    
+    func loadNoteData() {
+        var note: Note!
+        note = noteToEdit
+
+        if let title = note.passage {
+            noteTitleName.text = title
+        }
+        
+        let allTextViews: [UITextView] = [contextTV, genObsTV, keyTermsTV, difficultiesTV, unexpectedTV, comparisonsTV, crossRefsTV, aboutGodTV, spiritualResourcesTV, correctsTV,  takeawaysTV, applicationTV]
+        let coreDataFields = [note.context, note.observations, note.keyTerms, note.difficulties, note.unexpected, note.contrast, note.crossRefs, note.aboutGod, note.spiritualResources, note.corrects, note.takeaways, note.application]
+        let zipTextViewsFields = zip(allTextViews, coreDataFields)
+        for pair in zipTextViewsFields {
+            if let x = pair.1 {
+                pair.0.attributedText = x as! NSAttributedString
+            }
+        }
+        contextOutletSwitch.setOn(note.contextDone, animated: false)
+        observationsOutletSwitch.setOn(note.observationsDone, animated: false)
+        keyTermsOutletSwitch.setOn(note.keyTermsDone, animated: false)
+        difficultiesOutletSwitch.setOn(note.difficultiesDone, animated: false)
+        unexpectedOutletSwitch.setOn(note.unexpectedDone, animated: false)
+        comparisonsOutletSwitch.setOn(note.contrastDone, animated: false)
+        crossRefsOutletSwitch.setOn(note.crossRefsDone, animated: false)
+        aboutGodOutletSwitch.setOn(note.aboutGodDone, animated: false)
+        spiritualResourcesOutletSwitch.setOn(note.spiritualResourcesDone, animated: false)
+        correctsOutletSwitch.setOn(note.correctsDone, animated: false)
+        takeawaysOutletSwitch.setOn(note.takeawaysDone, animated: false)
+        applicationOutletSwitch.setOn(note.applicationDone, animated: false)
+   }
+    
+    func allNotesTogether() {
+        saveData()
+        loadNoteData()
+        let attrs = [NSAttributedStringKey.font : UIFont(name: "Georgia-Bold", size: 12)!]
+        allNotes = NSAttributedString(string: "")
+        
+        let allTextViews: [UITextView] = [contextTV, genObsTV, keyTermsTV, difficultiesTV, unexpectedTV, comparisonsTV, crossRefsTV, aboutGodTV, spiritualResourcesTV, correctsTV,  takeawaysTV, applicationTV]
+        let allNotesHeadings = ["Context\n", "\n\nGeneral observations\n", "\n\nKey terms\n", "\n\nDifficulties\n", "\n\nUnexpected\n", "\n\nComparisons/contrasts\n", "\n\nCross References\n","\n\nWhat this tells us about God\n","\n\nSpiritual Resources\n","\n\nCorrects conduct or error\n","\n\nTakeaways\n", "\n\nApplication\n"]
+        let zipTextViewsHeadings = zip(allTextViews, allNotesHeadings)
+        for pair in zipTextViewsHeadings {
+            if let x = pair.0.attributedText {
+                allNotes = allNotes + NSAttributedString(string: pair.1, attributes: attrs)
+                allNotes = allNotes + x
+            }
+        }
+    }
     
 }
 
-extension UITextView {
-    @objc func nextTV(position: Int) {
-        let position = self.tag
-        print(position)
-    }
-}
 
 func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString
 {

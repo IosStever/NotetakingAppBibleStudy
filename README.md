@@ -1,16 +1,13 @@
 #  To do list
+Folders?
 User info screen
 Add passage info to note list VC
 Add info/help buttons to each category or one help page-Did the one page    
-default fonts
 Icons - better ones
-test shorter version of scroll view
-Insert warning before deleting
-Ability to change font for text views, allNotes, increase font size
+Allow user to enter font size? Or choose between several?
 Indent the text on the all notes page
 Activity indicator (HUD?)
-
-Change bottom margin
+Review Angela Yu's app on tableview cells that go offscreen
 
 Reminders
 
@@ -18,7 +15,7 @@ Help page for using the app
 
 Use actual icons (for save)
 
-Way to save all notes page in app and retrieve it later
+Way to save all notes page in app and retrieve it later (but we still want to concatenate all notes fresh each time)
 
 12Cat Bible Study
 
@@ -26,9 +23,20 @@ Prayer requests and answers section
 
 Highlight headings on list page
 
-Save notes each time they go away (help, preview)
-
 Create search feature - especially for title
+
+//        contextTV.delegate = self
+//        genObsTV.delegate = self
+//        keyTermsTV.delegate = self
+//        difficultiesTV.delegate = self
+//        unexpectedTV.delegate = self
+//        comparisonsTV.delegate = self
+//        crossRefsTV.delegate = self
+//        aboutGodTV.delegate = self
+//        spiritualResourcesTV.delegate = self
+//        correctsTV.delegate = self
+//        takeawaysTV.delegate = self
+//        applicationTV.delegate = self
 
 
         //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backPressed))
@@ -299,3 +307,119 @@ print("Unable to fetch managed objects for entity \(entity).")
 return result
 }
 */
+func tempallNotesTogether() {
+saveData()
+loadNoteData()
+let attrs = [NSAttributedStringKey.font : UIFont(name: "Georgia-Bold", size: 12)!]
+allNotes = NSAttributedString(string: "")
+
+
+if let context = contextTV.attributedText {
+allNotes = allNotes + NSAttributedString(string: "Context\n", attributes: attrs)
+allNotes = allNotes + context
+}
+if let context = genObsTV.attributedText {
+allNotes = allNotes + NSAttributedString(string: "\n\nGeneral observations\n", attributes: attrs)
+allNotes = allNotes + context
+}
+if let context = keyTermsTV.attributedText {
+allNotes = allNotes + NSAttributedString(string: "\n\nKey terms\n", attributes: attrs)
+allNotes = allNotes + context
+}
+if let context = difficultiesTV.attributedText {
+allNotes = allNotes + NSAttributedString(string: "\n\nDifficulties\n", attributes: attrs)
+allNotes = allNotes + context
+}
+if let context = unexpectedTV.attributedText {
+allNotes = allNotes + NSAttributedString(string: "\n\nUnexpected\n", attributes: attrs)
+allNotes = allNotes + context
+}
+if let context = comparisonsTV.attributedText {
+allNotes = allNotes + NSAttributedString(string: "\n\nComparisons/contrasts\n", attributes: attrs)
+allNotes = allNotes + context
+}
+if let context = crossRefsTV.attributedText {
+allNotes = allNotes + NSAttributedString(string: "\n\nCross References\n", attributes: attrs)
+allNotes = allNotes + context
+}
+if let context = aboutGodTV.attributedText {
+allNotes = allNotes + NSAttributedString(string: "\n\nWhat this tells us about God\n", attributes: attrs)
+allNotes = allNotes + context
+}
+if let context = spiritualResourcesTV.attributedText {
+allNotes = allNotes + NSAttributedString(string: "\n\nSpiritual Resources\n", attributes: attrs)
+allNotes = allNotes + context
+}
+if let context = correctsTV.attributedText {
+allNotes = allNotes + NSAttributedString(string: "\n\nCorrects conduct or error\n", attributes: attrs)
+allNotes = allNotes + context
+}
+if let context = takeawaysTV.attributedText {
+allNotes = allNotes + NSAttributedString(string: "\n\nTakeaways\n", attributes: attrs)
+allNotes = allNotes + context
+}
+if let context = applicationTV.attributedText {
+allNotes = allNotes + NSAttributedString(string: "\n\nApplication\n", attributes: attrs)
+allNotes = allNotes + context
+}
+}
+
+func TemploadNoteData() {
+if let note = noteToEdit {
+
+if let title = note.passage {
+noteTitleName.text = title
+}
+
+if let context = note.context {
+contextTV.attributedText = context as! NSAttributedString
+}
+if let observations = note.observations {
+genObsTV.attributedText = observations as! NSAttributedString
+}
+if let keyTerms = note.keyTerms {
+keyTermsTV.attributedText = keyTerms as! NSAttributedString
+}
+if let difficulties = note.difficulties {
+difficultiesTV.attributedText = difficulties as! NSAttributedString
+}
+if let unexpected=note.unexpected {
+unexpectedTV.attributedText = unexpected as! NSAttributedString
+}
+if let contrast = note.contrast {
+comparisonsTV.attributedText = contrast as! NSAttributedString
+}
+if let crossRefs = note.crossRefs {
+crossRefsTV.attributedText = crossRefs as! NSAttributedString
+}
+if let aboutGod = note.aboutGod {
+aboutGodTV.attributedText = aboutGod as! NSAttributedString
+}
+if let spiritualResources = note.spiritualResources {
+spiritualResourcesTV.attributedText = spiritualResources as! NSAttributedString
+}
+if  let corrects = note.corrects {
+correctsTV.attributedText = corrects as! NSAttributedString
+}
+if let takeaways = note.takeaways {
+takeawaysTV.attributedText = takeaways as! NSAttributedString
+}
+if let application = note.application {
+applicationTV.attributedText = application as! NSAttributedString
+}
+
+contextOutletSwitch.setOn(note.contextDone, animated: false)
+observationsOutletSwitch.setOn(note.observationsDone, animated: false)
+keyTermsOutletSwitch.setOn(note.keyTermsDone, animated: false)
+difficultiesOutletSwitch.setOn(note.difficultiesDone, animated: false)
+unexpectedOutletSwitch.setOn(note.unexpectedDone, animated: false)
+comparisonsOutletSwitch.setOn(note.contrastDone, animated: false)
+crossRefsOutletSwitch.setOn(note.crossRefsDone, animated: false)
+aboutGodOutletSwitch.setOn(note.aboutGodDone, animated: false)
+spiritualResourcesOutletSwitch.setOn(note.spiritualResourcesDone, animated: false)
+correctsOutletSwitch.setOn(note.correctsDone, animated: false)
+takeawaysOutletSwitch.setOn(note.takeawaysDone, animated: false)
+applicationOutletSwitch.setOn(note.applicationDone, animated: false)
+
+}
+}

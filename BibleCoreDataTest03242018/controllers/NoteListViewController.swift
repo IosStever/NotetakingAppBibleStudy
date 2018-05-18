@@ -10,39 +10,40 @@ import UIKit
 import CoreData
 
 class NoteListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
-
+    
     @IBOutlet weak var titleBtn: UIButton!
     @IBOutlet weak var progressBtn: UIButton!
     @IBOutlet weak var lastUpdateBtn: UIButton!
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    
     @IBOutlet weak var titlesTableView: UITableView!
     
     var controller: NSFetchedResultsController<Note>!
-    //var nlvcTitle : String?
+    var toggle1 : Bool = true
+    var toggle2 : Bool = true
+    var toggle3 : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         titlesTableView.delegate = self
         titlesTableView.dataSource = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-
+        
         attemptFetch(key: "lastUpdateDate", ascending: false)
     }
     
-    
     @IBAction func titleBtnPrsd(_ sender: UIButton) {
-        attemptFetch(key: "passage", ascending: true)
-        }
-    
+        attemptFetch(key: "passage", ascending: toggle1)
+        toggle1 = !toggle1
+    }
     @IBAction func progressBtnPrsd(_ sender: UIButton) {
-    attemptFetch(key: "sectionsCompleted", ascending: true)
-    //titlesTableView.reloadData()
+        attemptFetch(key: "sectionsCompleted", ascending: toggle2)
+        toggle2 = !toggle2
     }
     @IBAction func updateBtnPrsd(_ sender: UIButton) {
-    attemptFetch(key: "lastUpdateDate", ascending: false)
-    //titlesTableView.reloadData()
+        attemptFetch(key: "lastUpdateDate", ascending: toggle3)
+        toggle3 = !toggle3
     }
     
     
@@ -54,13 +55,12 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             let newNote = Note(context: self.context)
-                newNote.passage = textField.text
-
+            newNote.passage = textField.text
+            
             let today = Date()
             
             newNote.lastUpdateDate = today
             self.saveItems()
-            
         }
         
         alert.addTextField { (alertTextField) in
@@ -82,7 +82,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         
         attemptFetch(key: "lastUpdateDate", ascending: false)
     }
-        
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sections = controller.sections {
             let sectionInfo = sections[section]
@@ -145,10 +145,10 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     func attemptFetch(key: String, ascending: Bool) {
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
         if key == "lastUpdateDate" {
-         let refSort = NSSortDescriptor(key: key, ascending: ascending)
+            let refSort = NSSortDescriptor(key: key, ascending: ascending)
             fetchRequest.sortDescriptors = [refSort]
         } else {
-        let refSort = NSSortDescriptor(key: key, ascending: ascending, selector: #selector(NSString.caseInsensitiveCompare))
+            let refSort = NSSortDescriptor(key: key, ascending: ascending, selector: #selector(NSString.caseInsensitiveCompare))
             fetchRequest.sortDescriptors = [refSort]
         }
         
@@ -167,7 +167,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
             print("\(error)")
         }
         titlesTableView.reloadData()
-
+        
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -179,42 +179,42 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         titlesTableView.endUpdates()
     }
+    /*
+     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+     
+     switch(type) {
+     
+     case.insert:
+     if let indexPath = newIndexPath {
+     titlesTableView.insertRows(at: [indexPath], with: .fade)
+     }
+     break
+     case.delete:
+     if let indexPath = indexPath {
+     titlesTableView.deleteRows(at: [indexPath], with: .fade)
+     }
+     break
+     case.update:
+     if let indexPath = indexPath {
+     let cell = titlesTableView.cellForRow(at: indexPath) as! TitleCell
+     configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
+     }
+     break
+     case.move:
+     if let indexPath = indexPath {
+     titlesTableView.deleteRows(at: [indexPath], with: .fade)
+     }
+     if let indexPath = newIndexPath {
+     titlesTableView.insertRows(at: [indexPath], with: .fade)
+     }
+     break
+     
+     }
+     }
+     */
     
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-        switch(type) {
-            
-        case.insert:
-            if let indexPath = newIndexPath {
-                titlesTableView.insertRows(at: [indexPath], with: .fade)
-            }
-            break
-        case.delete:
-            if let indexPath = indexPath {
-                titlesTableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            break
-        case.update:
-            if let indexPath = indexPath {
-                let cell = titlesTableView.cellForRow(at: indexPath) as! TitleCell
-                configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
-            }
-            break
-        case.move:
-            if let indexPath = indexPath {
-                titlesTableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            if let indexPath = newIndexPath {
-                titlesTableView.insertRows(at: [indexPath], with: .fade)
-            }
-            break
-            
-        }
-    }
-
-
 }
 
 /*
-
+ 
  */
