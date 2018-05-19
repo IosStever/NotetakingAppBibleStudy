@@ -15,7 +15,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var progressBtn: UIButton!
     @IBOutlet weak var lastUpdateBtn: UIButton!
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let contextMO = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     @IBOutlet weak var titlesTableView: UITableView!
     
@@ -54,7 +54,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         let alert = UIAlertController(title: "Add New Passage to study", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
-            let newNote = Note(context: self.context)
+            let newNote = Note(context: self.contextMO)
             newNote.passage = textField.text
             
             let today = Date()
@@ -75,7 +75,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     func saveItems() {
         
         do {
-            try context.save()
+            try contextMO.save()
         } catch {
             print("Error saving context \(error)")
         }
@@ -153,7 +153,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         
-        let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: contextMO, sectionNameKeyPath: nil, cacheName: nil)
         
         controller.delegate = self
         
@@ -179,40 +179,7 @@ class NoteListViewController: UIViewController, UITableViewDelegate, UITableView
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         titlesTableView.endUpdates()
     }
-    /*
-     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-     
-     switch(type) {
-     
-     case.insert:
-     if let indexPath = newIndexPath {
-     titlesTableView.insertRows(at: [indexPath], with: .fade)
-     }
-     break
-     case.delete:
-     if let indexPath = indexPath {
-     titlesTableView.deleteRows(at: [indexPath], with: .fade)
-     }
-     break
-     case.update:
-     if let indexPath = indexPath {
-     let cell = titlesTableView.cellForRow(at: indexPath) as! TitleCell
-     configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
-     }
-     break
-     case.move:
-     if let indexPath = indexPath {
-     titlesTableView.deleteRows(at: [indexPath], with: .fade)
-     }
-     if let indexPath = newIndexPath {
-     titlesTableView.insertRows(at: [indexPath], with: .fade)
-     }
-     break
-     
-     }
-     }
-     */
-    
+ 
 }
 
 /*

@@ -50,6 +50,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB4C445320B075EA001F66F6 /* noteList */ = {
+			isa = PBXGroup;
+			children = (
+				DB77A9ED2066A4BB00069CB8 /* NoteListViewController.swift */,
+				DBB43C8F208147B000553D87 /* TitleCell.swift */,
+			);
+			path = noteList;
+			sourceTree = "<group>";
+		};
+		DB4C445520B07731001F66F6 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DB6C9B07208A594400F9D750 /* UIViewExt.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		DB4C445620B07B8A001F66F6 /* notetaking */ = {
+			isa = PBXGroup;
+			children = (
+				DBB43C8C2080389C00553D87 /* NotesViewController.swift */,
+				DB6C9AE12083600E00F9D750 /* AllNotesVC.swift */,
+				DB6C9AE320865EB300F9D750 /* HelpVC.swift */,
+			);
+			path = notetaking;
+			sourceTree = "<group>";
+		};
 		DB77A9DF2066A4BB00069CB8 = {
 			isa = PBXGroup;
 			children = (
@@ -71,36 +98,33 @@
 			isa = PBXGroup;
 			children = (
 				DB6C9AE5208662B400F9D750 /* help.html */,
-				DB77AA0A2066B20000069CB8 /* entities */,
+				DB4C445620B07B8A001F66F6 /* notetaking */,
 				DB77A9EB2066A4BB00069CB8 /* AppDelegate.swift */,
-				DBB43C912082260700553D87 /* controllers */,
+				DB4C445320B075EA001F66F6 /* noteList */,
+				DB77AA0A2066B20000069CB8 /* state and storage */,
+				DBB43C912082260700553D87 /* model */,
+				DB4C445520B07731001F66F6 /* extensions */,
 				DB77A9EF2066A4BB00069CB8 /* Main.storyboard */,
 				DB77A9F52066A4BB00069CB8 /* Assets.xcassets */,
 				DB77A9F72066A4BB00069CB8 /* LaunchScreen.storyboard */,
 				DB77A9FA2066A4BB00069CB8 /* Info.plist */,
 				DB77A9F22066A4BB00069CB8 /* BibleCoreDataTest03242018.xcdatamodeld */,
-				DBB43C8F208147B000553D87 /* TitleCell.swift */,
-				DB6C9B07208A594400F9D750 /* UIViewExt.swift */,
 			);
 			path = BibleCoreDataTest03242018;
 			sourceTree = "<group>";
 		};
-		DB77AA0A2066B20000069CB8 /* entities */ = {
+		DB77AA0A2066B20000069CB8 /* state and storage */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = entities;
+			path = "state and storage";
 			sourceTree = "<group>";
 		};
-		DBB43C912082260700553D87 /* controllers */ = {
+		DBB43C912082260700553D87 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				DB77A9ED2066A4BB00069CB8 /* NoteListViewController.swift */,
-				DBB43C8C2080389C00553D87 /* NotesViewController.swift */,
-				DB6C9AE12083600E00F9D750 /* AllNotesVC.swift */,
-				DB6C9AE320865EB300F9D750 /* HelpVC.swift */,
 			);
-			path = controllers;
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

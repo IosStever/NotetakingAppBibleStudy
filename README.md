@@ -243,7 +243,7 @@ myScrollView.contentInset = UIEdgeInsets.zero
 */
 
 let strArr1 = [comparisonsTV, contextTV, genObsTV, keyTermsTV, difficultiesTV, unexpectedTV, crossRefsTV, aboutGodTV, spiritualResourcesTV, correctsTV, takeawaysTV, applicationTV]
-let strArr2 = [note.contrast, note.context, note.observations, note.keyTerms, note.difficulties, note.unexpected, note.crossRefs, note.aboutGod, note.spiritualResources, note.corrects, note.takeaways, note.application]
+let strArr2 = [note.context, note.observations, note.keyTerms, note.difficulties, note.unexpected, note.crossRefs, note.aboutGod, note.spiritualResources, note.corrects, note.takeaways, note.application]
 
 for (e1, e2) in zip(strArr1, strArr2) {
 if let x = e1?.attributedText {
@@ -423,3 +423,238 @@ applicationOutletSwitch.setOn(note.applicationDone, animated: false)
 
 }
 }
+/*
+func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+
+switch(type) {
+
+case.insert:
+if let indexPath = newIndexPath {
+titlesTableView.insertRows(at: [indexPath], with: .fade)
+}
+break
+case.delete:
+if let indexPath = indexPath {
+titlesTableView.deleteRows(at: [indexPath], with: .fade)
+}
+break
+case.update:
+if let indexPath = indexPath {
+let cell = titlesTableView.cellForRow(at: indexPath) as! TitleCell
+configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
+}
+break
+case.move:
+if let indexPath = indexPath {
+titlesTableView.deleteRows(at: [indexPath], with: .fade)
+}
+if let indexPath = newIndexPath {
+titlesTableView.insertRows(at: [indexPath], with: .fade)
+}
+break
+
+}
+}
+*/
+        var allFields = [note.context, note.observations, note.keyTerms, note.difficulties, note.unexpected, note.contrast, note.crossRefs, note.aboutGod, note.spiritualResources, note.corrects, note.takeaways, note.application]
+        if let passageContext = contextTV.attributedText {
+        note.context = passageContext
+        }
+        if let generalObs = genObsTV.attributedText {
+        note.observations = generalObs
+        }
+        if let keyTerms = keyTermsTV.attributedText  {
+        note.keyTerms = keyTerms
+        }
+        if let difficulties = difficultiesTV.attributedText {
+        note.difficulties = difficulties
+        }
+        if let unexpected = unexpectedTV.attributedText {
+        note.unexpected = unexpected
+        }
+        if let comparisons = comparisonsTV.attributedText {
+        note.contrast = comparisons
+        }
+        if let crossRefs = crossRefsTV.attributedText {
+        note.crossRefs = crossRefs
+        }
+        if let aboutGod = aboutGodTV.attributedText  {
+        note.aboutGod = aboutGod
+        }
+        if let spiritualResources = spiritualResourcesTV.attributedText {
+        note.spiritualResources = spiritualResources
+        }
+        if let corrects = correctsTV.attributedText {
+        note.corrects = corrects
+        }
+        if let takeaways = takeawaysTV.attributedText {
+        note.takeaways = takeaways
+        }
+        if let application = applicationTV.attributedText {
+        note.application = application
+        }
+        if contextOutletSwitch.isOn == true  {
+        note.contextDone = true
+        note.sectionsCompleted += 1
+        }
+        else {
+        note.contextDone = false
+        }
+        if observationsOutletSwitch.isOn == true  {
+        note.observationsDone = true
+        note.sectionsCompleted += 1
+        }
+        else {
+        note.observationsDone = false
+        }
+        if keyTermsOutletSwitch.isOn == true  {
+        note.keyTermsDone = true
+        note.sectionsCompleted += 1
+        }
+        else {
+        note.keyTermsDone = false
+        }
+        if difficultiesOutletSwitch.isOn == true {
+        note.difficultiesDone = true
+        note.sectionsCompleted += 1
+        }
+        else {
+        note.difficultiesDone = false
+        }
+        if unexpectedOutletSwitch.isOn == true  {
+        note.unexpectedDone = true
+        note.sectionsCompleted += 1
+        }
+        else {
+        note.unexpectedDone = false
+        }
+        if comparisonsOutletSwitch.isOn == true {
+        note.contrastDone = true
+        note.sectionsCompleted += 1
+        }
+        else {
+        note.contrastDone = false
+        }
+        if crossRefsOutletSwitch.isOn == true  {
+        note.crossRefsDone = true
+        note.sectionsCompleted += 1
+        }
+        else {
+        note.crossRefsDone = false
+        }
+        if aboutGodOutletSwitch.isOn == true {
+        note.aboutGodDone = true
+        note.sectionsCompleted += 1
+        }
+        else {
+        note.aboutGodDone = false
+        }
+        if spiritualResourcesOutletSwitch.isOn == true {
+        note.spiritualResourcesDone = true
+        note.sectionsCompleted += 1
+        }
+        else {
+        note.spiritualResourcesDone = false
+        }
+        if correctsOutletSwitch.isOn == true {
+        note.correctsDone = true
+        note.sectionsCompleted += 1
+        }
+        else {
+        note.correctsDone = false
+        }
+        if takeawaysOutletSwitch.isOn == true  {
+        note.takeawaysDone = true
+        note.sectionsCompleted += 1
+        }
+        else {
+        note.takeawaysDone = false
+        }
+        if applicationOutletSwitch.isOn == true  {
+        note.applicationDone = true
+        note.sectionsCompleted += 1
+        }
+        else {
+        note.applicationDone = false
+        }
+        func tempFunc() {
+        var note: Note!
+        note = noteToEdit
+        var x = 0
+        let allTextViews = [contextTV, genObsTV, keyTermsTV, difficultiesTV, unexpectedTV, comparisonsTV, crossRefsTV, aboutGodTV, spiritualResourcesTV, correctsTV,  takeawaysTV, applicationTV]
+        while x < allTextViews.count {
+        if let textViewInFocus = allTextViews[x]?.attributedText {
+        switch x {
+        case 0:
+        note.context = textViewInFocus
+        case 1:
+        note.observations = textViewInFocus
+        case 2:
+        note.keyTerms = textViewInFocus
+        case 3:
+        note.difficulties = textViewInFocus
+        case 4:
+        note.unexpected = textViewInFocus
+        case 5:
+        note.contrast = textViewInFocus
+        case 6:
+        note.crossRefs = textViewInFocus
+        case 7:
+        note.aboutGod = textViewInFocus
+        case 8:
+        note.spiritualResources = textViewInFocus
+        case 9:
+        note.corrects = textViewInFocus
+        case 10:
+        note.takeaways = textViewInFocus
+        case 11:
+        note.application = textViewInFocus
+        default:
+        return
+        }
+        }
+        x += 1
+        }
+        var y = 0
+        note.contextDone = contextOutletSwitch.isOn
+        let allSwitches = [contextOutletSwitch, observationsOutletSwitch, keyTermsOutletSwitch, difficultiesOutletSwitch, unexpectedOutletSwitch, comparisonsOutletSwitch, crossRefsOutletSwitch, aboutGodOutletSwitch, spiritualResourcesOutletSwitch, correctsOutletSwitch, takeawaysOutletSwitch, applicationOutletSwitch]
+        while y < allSwitches.count {
+        switch y {
+        case 0:
+        note.contextDone = (allSwitches[y]?.isOn)!
+        case 1:
+        note.observationsDone = (allSwitches[y]?.isOn)!
+        case 2:
+        note.keyTermsDone = (allSwitches[y]?.isOn)!
+        case 3:
+        note.difficultiesDone = (allSwitches[y]?.isOn)!
+        case 4:
+        note.unexpectedDone = (allSwitches[y]?.isOn)!
+        case 5:
+        note.contrastDone = (allSwitches[y]?.isOn)!
+        case 6:
+        note.crossRefsDone = (allSwitches[y]?.isOn)!
+        case 7:
+        note.aboutGodDone = (allSwitches[y]?.isOn)!
+        case 8:
+        note.spiritualResourcesDone = (allSwitches[y]?.isOn)!
+        case 9:
+        note.correctsDone = (allSwitches[y]?.isOn)!
+        case 10:
+        note.takeawaysDone = (allSwitches[y]?.isOn)!
+        case 11:
+        note.applicationDone = (allSwitches[y]?.isOn)!
+        default:
+        return
+        }
+        y += 1
+        }
+        y = 0
+        while y < allSwitches.count {
+        if allSwitches[y]?.isOn == true {
+        note.sectionsCompleted += 1
+        }
+        y += 1
+        }
+        
+        }
